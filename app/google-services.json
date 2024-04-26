@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "997959169040",
+    "firebase_url": "https://projeto-4c92b-default-rtdb.firebaseio.com",
+    "project_id": "projeto-4c92b",
+    "storage_bucket": "projeto-4c92b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:997959169040:android:7881d889ab9a76eb260695",
+        "android_client_info": {
+          "package_name": "com.example.telalogin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9LZBa471BeSac5O1lhlPlAGGRE073Ng8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
