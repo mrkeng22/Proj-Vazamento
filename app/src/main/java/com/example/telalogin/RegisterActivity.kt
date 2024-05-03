@@ -1,10 +1,12 @@
 package com.example.telalogin
 
+import android.graphics.Color
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 
 class RegisterActivity : AppCompatActivity() {
@@ -27,7 +29,18 @@ class RegisterActivity : AppCompatActivity() {
             val email = editTextEmail.text.toString()
             val password = editTextPassword.text.toString()
 
-            registerUser(name, email, password)
+            if (email.isEmpty() || password.isEmpty()){
+                val snackbar = Snackbar.make(
+                    findViewById(android.R.id.content),
+                    "Preencha todos os campos!",
+                    Snackbar.LENGTH_LONG
+                )
+                snackbar.setBackgroundTint(Color.RED)
+                snackbar.show()
+            }else{
+
+                registerUser(name, email, password)
+            }
         }
     }
 
@@ -45,3 +58,4 @@ class RegisterActivity : AppCompatActivity() {
             }
     }
 }
+

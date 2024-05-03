@@ -1,55 +1,59 @@
 package com.example.telalogin
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
-import android.widget.Button
-import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
-import android.view.View
-import android.widget.Toast
+import android.widget.Button
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.doOnTextChanged
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var auth: FirebaseAuth
 
     private lateinit var emailInputLayout: TextInputLayout
     private lateinit var passwordInputLayout: TextInputLayout
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Inicialize o objeto FirebaseAuth
         auth = FirebaseAuth.getInstance()
 
-        // Obtenha as referências para os TextInputLayouts
         emailInputLayout = findViewById(R.id.emailInputLayout)
         passwordInputLayout = findViewById(R.id.passwordInputLayout)
 
-        val btnIrParaOutraTela: Button = findViewById(R.id.bt_fluxo)
-        val btnIrParaRegistro: Button = findViewById(R.id.buttonRegister)
+        val btnLogin: Button = findViewById(R.id.btnLogin)
+        val btnRegister: Button = findViewById(R.id.btnRegister)
+        val txtEsqueciSenha: TextView = findViewById(R.id.textViewForgotPassword)
 
-        btnIrParaOutraTela.setOnClickListener {
-            // Obtenha os valores inseridos pelo usuário nos campos de email e senha
+        btnLogin.setOnClickListener {
             val email = emailInputLayout.editText?.text.toString()
             val password = passwordInputLayout.editText?.text.toString()
 
-            // Chame a função loginUser com o email e a senha fornecidos pelo usuário
             loginUser(email, password)
         }
+        txtEsqueciSenha.setOnClickListener{
 
-        btnIrParaRegistro.setOnClickListener {
-            // Criar um Intent para iniciar a RegisterActivity
+            irParaEsqueciSenha()
+
+        }
+
+        btnRegister.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
         }
 
-        // Verifique se o usuário já está autenticado
-        val currentUser = auth.currentUser
-        if (currentUser != null) {
-            // Se o usuário estiver autenticado, vá para a tela principal do sistema
-            irParaSegundaTela()
+        emailInputLayout.editText?.doOnTextChanged { text, _, _, _ ->
+            // Adicione sua lógica de validação aqui
+        }
+
+        passwordInputLayout.editText?.doOnTextChanged { text, _, _, _ ->
+            // Adicione sua lógica de validação aqui
         }
     }
 
@@ -62,12 +66,16 @@ class MainActivity : AppCompatActivity() {
                     irParaSegundaTela()
                 } else {
                     // Se o login falhar, exiba uma mensagem de erro
+                    val snackbar = Snackbar.make(
+                        findViewById(android.R.id.content),
+                        "Email ou senha Inválidos!",
+                        Snackbar.LENGTH_LONG
+                    )
+                    snackbar.setBackgroundTint(Color.RED)
+                    snackbar.show()
                     Log.w(TAG, "signInWithEmail:failure", task.exception)
                     // Exiba um pop-up informando que o email ou a senha estão incorretos
-                    Toast.makeText(
-                        baseContext, "Email ou senha incorretos.",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    // Aqui você pode exibir uma mensagem de erro na interface do usuário
                 }
             }
     }
@@ -75,12 +83,12 @@ class MainActivity : AppCompatActivity() {
     private fun irParaSegundaTela() {
         val segundaTela = Intent(this, Sistema::class.java)
         startActivity(segundaTela)
-        finish() // Encerrar a atividade atual
-    }
 
-    fun irParaEsqueciSenha(view: View) {
-        val intent = Intent(this, EsqueciSenha::class.java)
-        startActivity(intent)
+    }
+    private fun irParaEsqueciSenha() {
+        val segundaTela = Intent(this, EsqueciSenha::class.java)
+        startActivity(segundaTela)
+
     }
 
     companion object {
