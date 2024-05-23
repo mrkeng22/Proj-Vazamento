@@ -3,4 +3,6 @@
     <string name="digite_seu_e_mail">Digite seu e-mail</string>
     <string name="digite_sua_senha">Digite sua senha</string>
     <string name="enviar">Enviar</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 </resources>

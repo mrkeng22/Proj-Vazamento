@@ -81,7 +81,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun irParaSegundaTela() {
-        val segundaTela = Intent(this, Sistema::class.java)
+        val segundaTela = Intent(this, Sistema2::class.java)
         startActivity(segundaTela)
 
     }
