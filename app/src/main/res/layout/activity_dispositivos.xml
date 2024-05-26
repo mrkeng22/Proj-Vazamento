@@ -1,11 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/ronaldo"> <!-- Adicione o ID ao layout principal -->
+    android:layout_height="match_parent">
 
-    <com.github.mikephil.charting.charts.BarChart
-        android:id="@+id/barChart"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+    <TextView
+        android:id="@+id/textViewPressao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pressão: "
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"/>
+
+    <TextView
+        android:id="@+id/textViewVazao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Vazão: "
+        android:layout_below="@id/textViewPressao"
+        android:layout_marginStart="16dp"/>
+
 </RelativeLayout>

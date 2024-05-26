@@ -65,12 +65,12 @@ class Sistema2 : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
         when (item.itemId) {
             R.id.action_help -> {
                 // Ação para "Ajuda"
-                irParaDispositivos()
-                Toast.makeText(this, "Ajuda selecionada", Toast.LENGTH_SHORT).show()
+                irParaDispositivosMenu()
+                Toast.makeText(this, "Dispositivo selecionado", Toast.LENGTH_SHORT).show()
             }
             R.id.action_settings -> {
                 // Ação para "Dispositivos"
-                Toast.makeText(this, "Dispositivos selecionados", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Configurações selecionado", Toast.LENGTH_SHORT).show()
             }
             R.id.action_profile -> {
                 // Ação para "Perfil"
@@ -88,8 +88,8 @@ class Sistema2 : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
             super.onBackPressed()
         }
     }
-    private fun irParaDispositivos() {
-        val segundaTela = Intent(this, Dispositivos::class.java)
+    private fun irParaDispositivosMenu() {
+        val segundaTela = Intent(this, DispositivosMenu::class.java)
         startActivity(segundaTela)
 
     }

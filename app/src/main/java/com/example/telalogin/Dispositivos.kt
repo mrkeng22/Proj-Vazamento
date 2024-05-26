@@ -1,38 +1,60 @@
 package com.example.telalogin
 
 import android.os.Bundle
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.github.mikephil.charting.charts.BarChart
-import com.github.mikephil.charting.data.BarData
-import com.github.mikephil.charting.data.BarDataSet
-import com.github.mikephil.charting.data.BarEntry
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
 
 class Dispositivos : AppCompatActivity() {
+
+    private lateinit var databaseRef: DatabaseReference
+    private lateinit var textViewPressao: TextView
+    private lateinit var textViewVazao: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dispositivos)
 
-        // Configurar o BarChart
-        val barChart: BarChart = findViewById(R.id.barChart)
+        // Recuperar o ID do dispositivo selecionado dos argumentos
+        val dispositivoId = intent.getStringExtra("deviceID")
 
-        // Criar os dados para o gráfico de barras
-        val entries = ArrayList<BarEntry>()
-        entries.add(BarEntry(1f, 10f))
-        entries.add(BarEntry(2f, 20f))
-        entries.add(BarEntry(3f, 30f))
+        // Inicializar as visualizações
+        textViewPressao = findViewById(R.id.textViewPressao)
+        textViewVazao = findViewById(R.id.textViewVazao)
 
-        val dataSet = BarDataSet(entries, "Label") // Adicione um rótulo aos dados
-        val barData = BarData(dataSet)
-        barChart.data = barData
-        barChart.invalidate() // Atualiza o gráfico
+        // Inicializar o banco de dados Firebase
+        val userId = FirebaseAuth.getInstance().currentUser?.uid
+        if (userId != null && dispositivoId != null) {
+            databaseRef = FirebaseDatabase.getInstance().reference
+                .child("customers")
+                .child(userId)
+                .child("devices")
+                .child(dispositivoId)
 
-        // Configurar o ajuste de padding para system bars
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.ronaldo)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+            // Adicionar um listener de valor ao banco de dados para carregar os dados do dispositivo
+            databaseRef.addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    // Verificar se o dispositivo existe
+                    if (dataSnapshot.exists()) {
+                        // Recuperar os valores de pressão e vazão do dispositivo
+                        val pressao = dataSnapshot.child("pressure").getValue(Double::class.java)
+                        val vazao = dataSnapshot.child("flow").getValue(Double::class.java)
+
+                        // Exibir os valores de pressão e vazão na interface do usuário
+                        textViewPressao.text = "Pressão: $pressao"
+                        textViewVazao.text = "Vazão: $vazao"
+                    } else {
+                        // O dispositivo não foi encontrado, manipule esse caso conforme necessário
+                    }
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {
+                    // Trate os erros de carregamento dos dados do dispositivo
+                }
+            })
+        } else {
+            // Usuário não autenticado ou ID do dispositivo não recebido, manipule esse caso conforme necessário
         }
     }
 }
