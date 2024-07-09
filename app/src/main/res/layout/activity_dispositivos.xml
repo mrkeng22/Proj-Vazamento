@@ -20,4 +20,13 @@
         android:layout_below="@id/textViewPressao"
         android:layout_marginStart="16dp"/>
 
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/chart"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginBottom="65dp" />
+
 </RelativeLayout>

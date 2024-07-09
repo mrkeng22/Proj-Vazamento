@@ -10,7 +10,7 @@
             android:title="Perfil" />
         <item
             android:id="@+id/action_settings"
-            android:icon="@drawable/ic_launcher_foreground"
+            android:icon="@drawable/icsettings"
             android:title="Configurações" />
     </group>
 </menu>

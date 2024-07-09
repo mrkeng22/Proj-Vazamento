@@ -12,6 +12,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 
+
 class MainActivity : AppCompatActivity() {
 
     private lateinit var emailInputLayout: TextInputLayout
@@ -55,6 +56,7 @@ class MainActivity : AppCompatActivity() {
         passwordInputLayout.editText?.doOnTextChanged { text, _, _, _ ->
             // Adicione sua lógica de validação aqui
         }
+
     }
 //dasndoianf
     private fun loginUser(email: String, password: String) {
