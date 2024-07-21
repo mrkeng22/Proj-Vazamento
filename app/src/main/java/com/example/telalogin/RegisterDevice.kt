@@ -48,7 +48,9 @@ class RegisterDevice : AppCompatActivity() {
                     "name" to deviceName,
                     "type" to deviceType,
                     "pressure" to 0.0, // Initial value
-                    "flow" to 0.0      // Initial value
+                    "flow" to 0.0,
+                    "state" to false// Initial value
+
                 )
 
                 database.child("customers").child(userId).child("devices").child(deviceId).setValue(deviceMap)
