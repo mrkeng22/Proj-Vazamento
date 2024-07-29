@@ -28,6 +28,7 @@ class Dispositivos : AppCompatActivity() {
     private lateinit var textViewVazao: TextView
     private lateinit var chart: LineChart
     private lateinit var btnValv: Button
+    private lateinit var btnColetarDados: Button
     private val pressureEntries = LinkedList<Entry>()
     private val flowEntries = LinkedList<Entry>()
     private val handler = Handler(Looper.getMainLooper())
@@ -46,6 +47,7 @@ class Dispositivos : AppCompatActivity() {
         textViewVazao = findViewById(R.id.textViewVazao)
         chart = findViewById(R.id.chart)
         btnValv = findViewById(R.id.btnValv)
+        btnColetarDados = findViewById(R.id.btnColetarDados) // Inicializar o botão de coleta de dados
 
         // Configurar o gráfico
         configureChart()
@@ -88,17 +90,18 @@ class Dispositivos : AppCompatActivity() {
             })
 
             // Iniciar a atualização do gráfico em intervalos regulares
-            handler.postDelayed(object : Runnable {
-                override fun run() {
-                    updateChart()
-                    handler.postDelayed(this, updateInterval)
-                }
-            }, updateInterval)
+            startChartUpdate()
 
             // Configurar o botão para setar o estado no Firebase
             btnValv.setOnClickListener {
                 toggleState()
             }
+
+            // Configurar o botão para coletar dados do Firebase
+            btnColetarDados.setOnClickListener {
+                coletarDadosDoFirebase()
+            }
+
         } else {
             Log.e("Firebase", "userId ou dispositivoId é nulo.")
         }
@@ -117,6 +120,15 @@ class Dispositivos : AppCompatActivity() {
         xAxis.valueFormatter = TimeAxisValueFormatter()
         xAxis.granularity = 1f // Ajustar conforme necessário
         xAxis.setDrawLabels(true) // Garantir que os rótulos estejam desenhados
+    }
+
+    private fun startChartUpdate() {
+        handler.postDelayed(object : Runnable {
+            override fun run() {
+                updateChart()
+                handler.postDelayed(this, updateInterval)
+            }
+        }, updateInterval)
     }
 
     private fun updateChart() {
@@ -178,6 +190,40 @@ class Dispositivos : AppCompatActivity() {
 
             override fun onCancelled(error: DatabaseError) {
                 Log.e("Firebase", "Erro ao ler estado: ${error.message}")
+            }
+        })
+    }
+
+    // Método para coletar dados do Firebase e atualizar o gráfico
+    private fun coletarDadosDoFirebase() {
+        databaseRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    // Recuperar os valores de pressão e vazão do dispositivo
+                    val pressao = dataSnapshot.child("pressure").getValue(Double::class.java)
+                    val vazao = dataSnapshot.child("flow").getValue(Double::class.java)
+
+                    // Exibir os valores de pressão e vazão na interface do usuário
+                    textViewPressao.text = "Pressão: $pressao"
+                    textViewVazao.text = "Vazão: $vazao"
+
+                    // Adicionar os valores ao gráfico
+                    val timestamp = System.currentTimeMillis()
+                    val formattedTime = formatTime(timestamp)
+                    pressao?.let { pressureEntries.add(Entry(formattedTime, it.toFloat())) }
+                    vazao?.let { flowEntries.add(Entry(formattedTime, it.toFloat())) }
+
+                    // Atualizar o gráfico
+                    updateChart()
+
+                    Toast.makeText(this@Dispositivos, "Dados coletados com sucesso", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this@Dispositivos, "Nenhum dado encontrado", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                Toast.makeText(this@Dispositivos, "Erro ao coletar dados: ${databaseError.message}", Toast.LENGTH_SHORT).show()
             }
         })
     }

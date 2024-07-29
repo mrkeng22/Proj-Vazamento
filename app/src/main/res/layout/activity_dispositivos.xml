@@ -16,6 +16,19 @@
         android:layout_marginBottom="98dp"
         android:text="Fechar/Abrir Valvula" />
 
+    <Button
+        android:id="@+id/btnColetarDados"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="144dp"
+        android:layout_marginEnd="145dp"
+        android:layout_marginBottom="34dp"
+        android:padding="16dp"
+        android:text="Refresh" />
+
     <TextView
         android:id="@+id/textViewPressao"
         android:layout_width="wrap_content"
@@ -39,7 +52,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="0dp"
-        android:layout_marginBottom="65dp"
-        android:background="#FFFFFF"/>
+        android:layout_marginBottom="107dp"
+        android:background="#FFFFFF" />
 
 </RelativeLayout>

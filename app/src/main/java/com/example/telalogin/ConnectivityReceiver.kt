@@ -1,27 +1,33 @@
 package com.example.telalogin
+
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.os.Build
 import android.util.Log
-
 
 class ConnectivityReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
-        val connectivityManager =
-            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val networkInfo = connectivityManager.activeNetworkInfo
+        if (intent.action == ConnectivityManager.CONNECTIVITY_ACTION) {
+            val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            val network = connectivityManager.activeNetwork
+            val capabilities = connectivityManager.getNetworkCapabilities(network)
 
-        if (networkInfo != null && networkInfo.isConnected) {
-            // Dispositivo está conectado à Internet
-            Log.d("ConnectivityReceiver", "Dispositivo está conectado à Internet")
+            val isConnected = capabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
 
-            // Iniciar sua atividade de background aqui
-            val serviceIntent = Intent(context, MyBackgroundService::class.java)
-            context.startService(serviceIntent)
-        } else {
-            // Dispositivo não está conectado à Internet
-            Log.d("ConnectivityReceiver", "Dispositivo não está conectado à Internet")
+            if (isConnected) {
+                Log.d("ConnectivityReceiver", "Dispositivo está conectado à Internet")
+                val serviceIntent = Intent(context, MyBackgroundService::class.java)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    context.startForegroundService(serviceIntent)
+                } else {
+                    context.startService(serviceIntent)
+                }
+            } else {
+                Log.d("ConnectivityReceiver", "Dispositivo não está conectado à Internet")
+            }
         }
     }
 }

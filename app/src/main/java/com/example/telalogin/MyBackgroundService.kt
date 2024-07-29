@@ -26,6 +26,7 @@ class MyBackgroundService : Service() {
         Log.d("MyBackgroundService", "Serviço criado")
         startForegroundService()
         startMonitoring()
+
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {

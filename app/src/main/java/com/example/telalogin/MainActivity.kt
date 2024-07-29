@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
         auth = FirebaseAuth.getInstance()
 
         emailInputLayout = findViewById(R.id.emailInputLayout)
