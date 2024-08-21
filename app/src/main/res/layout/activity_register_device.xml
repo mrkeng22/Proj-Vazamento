@@ -1,29 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp">
 
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="339dp"
+        android:layout_height="98dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="94dp"
+        android:text="CADASTRO DE DISPOSITIVO"
+        android:textColor="@color/cinza"
+        android:textSize="35sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <EditText
         android:id="@+id/editTextDeviceName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Device Name" />
+        android:layout_width="395dp"
+        android:layout_height="57dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="228dp"
+        android:background="@drawable/rounded_corner"
+        android:hint="NOME DO DISPOSITIVO"
+        android:textColorHint="@color/white"/>
+
 
     <EditText
         android:id="@+id/editTextDeviceType"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Device Type"
+        android:layout_width="389dp"
+        android:layout_height="59dp"
         android:layout_below="@id/editTextDeviceName"
-        android:layout_marginTop="16dp" />
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="22dp"
+        android:background="@drawable/rounded_corner"
+        android:hint="TIPO DE DISPOSITIVO"
+        android:textColorHint="@color/white"
+        />
 
     <Button
         android:id="@+id/buttonRegisterDevice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Register Device"
         android:layout_below="@id/editTextDeviceType"
-        android:layout_marginTop="16dp"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="199dp"
+        android:layout_marginEnd="14dp"
+        android:text="Cadastrar"
+        android:backgroundTint="@color/ciano"
+        />
 </RelativeLayout>
