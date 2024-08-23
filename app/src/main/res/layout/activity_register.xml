@@ -6,7 +6,7 @@
     <EditText
         android:id="@+id/editTextName"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="78dp"
@@ -16,7 +16,7 @@
     <EditText
         android:id="@+id/editTextEmail"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_below="@id/editTextName"
         android:layout_marginTop="63dp"
         android:hint="Email"
@@ -25,7 +25,7 @@
     <EditText
         android:id="@+id/editTextPassword"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_below="@id/editTextEmail"
         android:layout_marginTop="55dp"
         android:hint="Password"
@@ -36,9 +36,9 @@
     <Button
         android:id="@+id/buttonRegister"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_below="@id/editTextPassword"
-        android:layout_marginTop="75dp"
+        android:layout_marginTop="48dp"
         android:text="Register" />
 
 </RelativeLayout>

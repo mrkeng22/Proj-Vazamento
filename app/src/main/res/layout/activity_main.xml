@@ -14,7 +14,7 @@
         android:id="@+id/emailInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal=""
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="250dp"
         android:hint="Email"
         android:textColorHint="@color/white"
@@ -29,6 +29,9 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- TextInputLayout para a senha -->
+
+
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/passwordInputLayout"
         android:layout_width="match_parent"
@@ -45,7 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
-            android:background="@drawable/rounded_corner"/>/>
+            android:background="@drawable/rounded_corner"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Botão de login -->
