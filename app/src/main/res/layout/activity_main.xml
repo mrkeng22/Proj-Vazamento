@@ -39,7 +39,7 @@
         android:layout_below="@id/emailInputLayout"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
-        android:hint="Senha"
+
         android:textColorHint="@color/white"
         >
 
@@ -48,6 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
+            android:hint="Senha"
             android:background="@drawable/rounded_corner"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -85,5 +86,11 @@
         android:layout_marginTop="16dp"
         android:text="Esqueceu a senha?"
         android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="395dp"
+        android:layout_height="237dp"
+        app:srcCompat="@drawable/master_logo" />
 
 </RelativeLayout>

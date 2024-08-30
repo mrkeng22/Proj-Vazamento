@@ -1,8 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    //Cores padrão
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="ciano">#7DD1D1</color>
     <color name="cinza">#75777E</color>
+
+    //Cores do sistema
+    <color name="laranja">#E88D67</color>
+    <color name="terra">#BB999C</color>
+    <color name="lilas">#9999C3</color>
+    <color name="azulescuro">#5F6FFF</color>
+    //alternativamente: #7B8CDE
+    <color name="azuldark">#1F1FFF</color>
+    //mais escuro ainda: #0202B4
+    <color name="cianoescuro">#C0E6DE</color>
+
+
 
 </resources>
