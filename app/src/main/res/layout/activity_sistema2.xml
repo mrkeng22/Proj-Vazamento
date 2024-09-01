@@ -17,7 +17,6 @@
             android:id="@+id/content_frame"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
             >
 
             <com.google.android.material.navigation.NavigationView
@@ -37,7 +36,7 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="100dp"
                 android:layout_marginTop="300dp"
-                android:backgroundTint="@color/ciano"
+                android:backgroundTint="@color/azulescuro"
                 />
         </FrameLayout>
     </LinearLayout>
