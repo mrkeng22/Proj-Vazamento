@@ -1,11 +1,14 @@
 package com.example.telalogin
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Button
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.core.view.ViewCompat
@@ -20,6 +23,7 @@ class Sistema2 : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navView: NavigationView
     private lateinit var auth: FirebaseAuth
+    private lateinit var btnLogout: Button  // Adicionado para o botão de logout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +59,13 @@ class Sistema2 : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
 
+        // Inicializa o botão de logout
+        btnLogout = findViewById(R.id.btnLogout)
 
+        // Define o clique para o botão de logout
+        btnLogout.setOnClickListener {
+            confirmarLogout()
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -95,10 +105,39 @@ class Sistema2 : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
         }
     }
 
+    private fun confirmarLogout() {
+        // Cria o AlertDialog para confirmar o logout
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Confirmar Logout")
+        builder.setMessage("Você tem certeza que deseja sair?")
+
+        // Define o botão de confirmação
+        builder.setPositiveButton("Sim") { dialog, _ ->
+            auth.signOut()  // Faz logout do usuário no Firebase
+
+            // Limpar a preferência de manter o usuário conectado
+            val sharedPreferences = getSharedPreferences("prefs", Context.MODE_PRIVATE)
+            val editor = sharedPreferences.edit()
+            editor.putBoolean("keepLoggedIn", false) // Limpa a preferência de login
+            editor.apply()
+
+            // Redireciona para a tela principal (MainActivity)
+            val intent = Intent(this, MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(intent)
+            finish() // Fecha a activity atual
+        }
+
+        // Define o botão de cancelamento
+        builder.setNegativeButton("Não") { dialog, _ ->
+            dialog.dismiss()
+        }
+
+        val alertDialog = builder.create()
+        alertDialog.show()
+    }
     private fun irParaDispositivosMenu() {
         val segundaTela = Intent(this, DispositivosMenu::class.java)
         startActivity(segundaTela)
-
     }
-
 }
