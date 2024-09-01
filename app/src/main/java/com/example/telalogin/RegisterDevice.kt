@@ -27,12 +27,13 @@ class RegisterDevice : AppCompatActivity() {
         val editTextDeviceType = findViewById<EditText>(R.id.editTextDeviceType)
         val buttonRegisterDevice = findViewById<Button>(R.id.buttonRegisterDevice)
 
+
         buttonRegisterDevice.setOnClickListener {
             val deviceName = editTextDeviceName.text.toString()
             val deviceType = editTextDeviceType.text.toString()
 
             if (deviceName.isEmpty() || deviceType.isEmpty()) {
-                Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Por favor preencha todos os campos!", Toast.LENGTH_SHORT).show()
             } else {
                 registerDevice(deviceName, deviceType)
             }
@@ -48,18 +49,18 @@ class RegisterDevice : AppCompatActivity() {
                     "name" to deviceName,
                     "type" to deviceType,
                     "pressure" to 0.0, // Initial value
-                    "flow" to 0.0,
-                    "state" to false// Initial value
-
+                    "flow" to 0.0,     // Initial value
+                    "state" to false,  // Initial value
+                    "batteryLevel" to 0.0 // Initial Value
                 )
 
                 database.child("customers").child(userId).child("devices").child(deviceId).setValue(deviceMap)
                     .addOnSuccessListener {
-                        Toast.makeText(this, "Device registered successfully!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "Dispositivo registrado com sucesso!", Toast.LENGTH_SHORT).show()
                         finish() // Close the activity
                     }
                     .addOnFailureListener {
-                        Toast.makeText(this, "Failed to register device.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "Falha ao registrar o dispositivo.", Toast.LENGTH_SHORT).show()
                     }
             } else {
                 Toast.makeText(this, "Failed to generate device ID.", Toast.LENGTH_SHORT).show()

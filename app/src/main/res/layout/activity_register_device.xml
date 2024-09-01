@@ -7,19 +7,16 @@
 
     <TextView
         android:id="@+id/titleTextView"
-        android:layout_width="316dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="37dp"
-        android:layout_marginTop="83dp"
-        android:layout_marginEnd="42dp"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="150dp"
         android:text="CADASTRO DE DISPOSITIVO"
         android:textColor="@color/cinza"
-        android:textSize="30sp"
-        android:textStyle="bold"
-
-        />
+        android:textSize="26sp"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/editTextDeviceName"
@@ -31,6 +28,9 @@
         android:hint="NOME DO DISPOSITIVO"
         android:paddingLeft="10dp"
         android:textColorHint="@color/white"
+        android:textStyle="italic"
+        android:textColor="@color/white"
+
         
         />
 
@@ -47,6 +47,9 @@
         android:paddingLeft="10dp"
         android:hint="TIPO DE DISPOSITIVO"
         android:textColorHint="@color/white"
+        android:textStyle="italic"
+        android:textColor="@color/white"
+
         />
 
     <Button
@@ -57,7 +60,10 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="199dp"
         android:layout_marginEnd="14dp"
-        android:text="Cadastrar"
-        android:backgroundTint="@color/ciano"
+        android:text="Adicionar"
+        android:backgroundTint="@color/azulescuro"
         />
+
+
+
 </RelativeLayout>

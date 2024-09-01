@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.components.XAxis
@@ -26,6 +27,7 @@ class Dispositivos : AppCompatActivity() {
     private lateinit var databaseRef: DatabaseReference
     private lateinit var textViewPressao: TextView
     private lateinit var textViewVazao: TextView
+    private lateinit var textViewBateria: TextView
     private lateinit var chart: LineChart
     private lateinit var btnValv: Button
     private lateinit var btnColetarDados: Button
@@ -45,6 +47,7 @@ class Dispositivos : AppCompatActivity() {
         // Inicializar as visualizações
         textViewPressao = findViewById(R.id.textViewPressao)
         textViewVazao = findViewById(R.id.textViewVazao)
+        textViewBateria = findViewById(R.id.textViewBateria) // Inicializa a TextView da bateria
         chart = findViewById(R.id.chart)
         btnValv = findViewById(R.id.btnValv)
         btnColetarDados = findViewById(R.id.btnColetarDados) // Inicializar o botão de coleta de dados
@@ -65,15 +68,17 @@ class Dispositivos : AppCompatActivity() {
             databaseRef.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     if (dataSnapshot.exists()) {
-                        // Recuperar os valores de pressão e vazão do dispositivo
+                        // Recuperar os valores de pressão, vazão e bateria do dispositivo
                         val pressao = dataSnapshot.child("pressure").getValue(Double::class.java)
                         val vazao = dataSnapshot.child("flow").getValue(Double::class.java)
+                        val bateria = dataSnapshot.child("batteryLevel").getValue(Double::class.java)
 
-                        // Exibir os valores de pressão e vazão na interface do usuário
-                        textViewPressao.text = "Pressão: $pressao"
-                        textViewVazao.text = "Vazão: $vazao"
+                        // Exibir os valores na interface do usuário, tratando valores nulos
+                        textViewPressao.text = "Pressão: ${pressao ?: "N/A"}"
+                        textViewVazao.text = "Vazão: ${vazao ?: "N/A"}"
+                        textViewBateria.text = "Bateria: ${bateria ?: "N/A"}%"
 
-                        // Adicionar os valores ao gráfico
+                        // Adicionar os valores ao gráfico, apenas se não forem nulos
                         val timestamp = System.currentTimeMillis()
                         val formattedTime = formatTime(timestamp)
                         pressao?.let { pressureEntries.add(Entry(formattedTime, it.toFloat())) }
@@ -81,11 +86,14 @@ class Dispositivos : AppCompatActivity() {
 
                         // Atualizar o gráfico
                         updateChart()
+                    } else {
+                        Log.d("Firebase", "Nenhum dado encontrado no caminho especificado.")
                     }
                 }
 
                 override fun onCancelled(databaseError: DatabaseError) {
-                    // Trate os erros de carregamento dos dados do dispositivo
+                    Log.e("Firebase", "Erro ao ler dados: ${databaseError.message}")
+                    Toast.makeText(this@Dispositivos, "Erro ao carregar dados do Firebase", Toast.LENGTH_SHORT).show()
                 }
             })
 
@@ -104,16 +112,26 @@ class Dispositivos : AppCompatActivity() {
 
         } else {
             Log.e("Firebase", "userId ou dispositivoId é nulo.")
+            Toast.makeText(this, "Erro ao carregar o dispositivo. Por favor, tente novamente.", Toast.LENGTH_SHORT).show()
         }
     }
 
     private fun configureChart() {
         // Configurar o estilo do gráfico
         chart.axisLeft.textColor = Color.BLACK // Cor dos números no eixo Y
-        chart.axisRight.textColor = Color.BLACK // Cor dos números no eixo Y (lado direito)
-        chart.xAxis.textColor = Color.WHITE // Cor dos números no eixo X
+        chart.axisLeft.setDrawGridLines(false) // Remover linhas de grade no eixo Y
+        chart.axisRight.isEnabled = false // Desativar o eixo Y à direita
+        chart.xAxis.textColor = Color.BLACK // Cor dos números no eixo X
         chart.xAxis.position = XAxis.XAxisPosition.BOTTOM // Posição dos números no eixo X
+        chart.xAxis.setDrawGridLines(false) // Remover linhas de grade no eixo X
         chart.description.isEnabled = false // Desativar a descrição do gráfico
+        chart.legend.isEnabled = true // Mostrar legenda do gráfico
+        chart.setTouchEnabled(true) // Habilitar toque no gráfico
+        chart.isDragEnabled = true // Habilitar arrastar
+        chart.setScaleEnabled(true) // Habilitar zoom
+
+        // Adicionando animação
+        chart.animateX(1500, Easing.EaseInOutQuart)
 
         // Configurar o formato do eixo X como horário
         val xAxis = chart.xAxis
@@ -146,15 +164,27 @@ class Dispositivos : AppCompatActivity() {
         val pressureDataSet = LineDataSet(pressureEntries, "Pressão")
         val flowDataSet = LineDataSet(flowEntries, "Vazão")
 
-        // Configurar cores dos dados
+        // Configurações de estilo para o conjunto de dados de pressão
         pressureDataSet.color = Color.RED
-        pressureDataSet.valueTextColor = Color.RED // Cor dos números dos dados de pressão
+        pressureDataSet.valueTextColor = Color.RED
+        pressureDataSet.lineWidth = 2f // Espessura da linha
+        pressureDataSet.circleRadius = 5f // Tamanho do círculo nos pontos
+        pressureDataSet.setCircleColor(Color.RED) // Cor do círculo nos pontos
+        pressureDataSet.setDrawCircles(true) // Mostrar círculos nos pontos
+        pressureDataSet.setDrawValues(false) // Não mostrar os valores dos pontos
+
+        // Configurações de estilo para o conjunto de dados de vazão
         flowDataSet.color = Color.GREEN
-        flowDataSet.valueTextColor = Color.GREEN // Cor dos números dos dados de vazão
+        flowDataSet.valueTextColor = Color.GREEN
+        flowDataSet.lineWidth = 2f // Espessura da linha
+        flowDataSet.circleRadius = 5f // Tamanho do círculo nos pontos
+        flowDataSet.setCircleColor(Color.GREEN) // Cor do círculo nos pontos
+        flowDataSet.setDrawCircles(true) // Mostrar círculos nos pontos
+        flowDataSet.setDrawValues(false) // Não mostrar os valores dos pontos
 
         val lineData = LineData(pressureDataSet, flowDataSet)
         chart.data = lineData
-        chart.invalidate() // Refresh the chart
+        chart.invalidate() // Atualizar o gráfico
 
         // Mover a visualização para os novos dados
         if (pressureEntries.isNotEmpty() || flowEntries.isNotEmpty()) {
@@ -199,15 +229,17 @@ class Dispositivos : AppCompatActivity() {
         databaseRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    // Recuperar os valores de pressão e vazão do dispositivo
+                    // Recuperar os valores de pressão, vazão e bateria do dispositivo
                     val pressao = dataSnapshot.child("pressure").getValue(Double::class.java)
                     val vazao = dataSnapshot.child("flow").getValue(Double::class.java)
+                    val bateria = dataSnapshot.child("battery").getValue(Int::class.java)
 
-                    // Exibir os valores de pressão e vazão na interface do usuário
-                    textViewPressao.text = "Pressão: $pressao"
-                    textViewVazao.text = "Vazão: $vazao"
+                    // Exibir os valores na interface do usuário, tratando valores nulos
+                    textViewPressao.text = "Pressão: ${pressao ?: "N/A"}"
+                    textViewVazao.text = "Vazão: ${vazao ?: "N/A"}"
+                    textViewBateria.text = "Bateria: ${bateria ?: "N/A"}"
 
-                    // Adicionar os valores ao gráfico
+                    // Adicionar os valores ao gráfico, apenas se não forem nulos
                     val timestamp = System.currentTimeMillis()
                     val formattedTime = formatTime(timestamp)
                     pressao?.let { pressureEntries.add(Entry(formattedTime, it.toFloat())) }
