@@ -13,8 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="250dp"
-        android:hint="@string/email"
-        android:textColorHint="@color/white"
+        app:hintEnabled="false"
         >
 
         <EditText
@@ -25,6 +24,8 @@
             android:inputType="textEmailAddress"
             android:background="@drawable/custom_input"
             android:textColor="@color/white"
+            android:hint="Email"
+            android:textColorHint="@color/white"
 
             />
     </com.google.android.material.textfield.TextInputLayout>
@@ -38,8 +39,7 @@
         android:layout_below="@id/emailInputLayout"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
-        android:hint="@string/senha"
-        android:textColorHint="@color/white"
+        app:hintEnabled="false"
         >
 
         <EditText
@@ -50,8 +50,13 @@
             android:inputType="textPassword"
             android:background="@drawable/custom_input"
             android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:hint="Senha"
             >
         </EditText>
+
+
+
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Botão de login -->
