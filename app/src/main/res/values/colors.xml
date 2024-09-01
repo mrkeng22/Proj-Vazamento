@@ -4,5 +4,10 @@
     <color name="white">#FFFFFFFF</color>
     <color name="ciano">#7DD1D1</color>
     <color name="cinza">#75777E</color>
+    <color name="cinza_claro">#EDEDED</color>
+
+    <color name="azulescuro">#5F6FFF </color>
+    <color name="bordaLogin">#1F1FFF</color>
+
 
 </resources>

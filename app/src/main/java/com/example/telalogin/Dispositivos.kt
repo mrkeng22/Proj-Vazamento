@@ -109,8 +109,8 @@ class Dispositivos : AppCompatActivity() {
 
     private fun configureChart() {
         // Configurar o estilo do gráfico
-        chart.axisLeft.textColor = Color.WHITE // Cor dos números no eixo Y
-        chart.axisRight.textColor = Color.WHITE // Cor dos números no eixo Y (lado direito)
+        chart.axisLeft.textColor = Color.BLACK // Cor dos números no eixo Y
+        chart.axisRight.textColor = Color.BLACK // Cor dos números no eixo Y (lado direito)
         chart.xAxis.textColor = Color.WHITE // Cor dos números no eixo X
         chart.xAxis.position = XAxis.XAxisPosition.BOTTOM // Posição dos números no eixo X
         chart.description.isEnabled = false // Desativar a descrição do gráfico

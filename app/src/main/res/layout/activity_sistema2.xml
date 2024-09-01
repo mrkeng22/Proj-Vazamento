@@ -16,7 +16,9 @@
         <FrameLayout
             android:id="@+id/content_frame"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            >
 
             <com.google.android.material.navigation.NavigationView
                 android:id="@+id/nav_view"
@@ -24,8 +26,20 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="start"
                 app:menu="@menu/drawer_menu" />
-        </FrameLayout>
 
+
+            <Button
+                android:id="@+id/btnLogout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Desconectar-se"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:layout_marginLeft="100dp"
+                android:layout_marginTop="300dp"
+                android:backgroundTint="@color/ciano"
+                />
+        </FrameLayout>
     </LinearLayout>
 
 </androidx.drawerlayout.widget.DrawerLayout>

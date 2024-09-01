@@ -6,9 +6,6 @@
     android:padding="16dp"
     tools:context=".MainActivity">
 
-
-
-
     <!-- TextInputLayout para o email -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/emailInputLayout"
@@ -16,21 +13,23 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="250dp"
-        android:hint="Email"
+        android:hint="@string/email"
         android:textColorHint="@color/white"
         >
 
         <EditText
             android:id="@+id/editTextEmail"
+            android:drawableStart="@drawable/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
-            android:background="@drawable/rounded_corner"/>
+            android:background="@drawable/custom_input"
+            android:textColor="@color/white"
+
+            />
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- TextInputLayout para a senha -->
-
-
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/passwordInputLayout"
@@ -39,19 +38,25 @@
         android:layout_below="@id/emailInputLayout"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
-        android:hint="Senha"
+        android:hint="@string/senha"
         android:textColorHint="@color/white"
         >
 
         <EditText
             android:id="@+id/editTextPassword"
+            android:drawableStart="@drawable/locked_ic"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
-            android:background="@drawable/rounded_corner"/>
+            android:background="@drawable/custom_input"
+            android:textColor="@color/white"
+            >
+        </EditText>
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Botão de login -->
+
+
     <Button
         android:id="@+id/btnLogin"
         android:layout_width="wrap_content"
@@ -60,7 +65,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
         android:text="Login"
-        android:backgroundTint="@color/ciano"
+        android:backgroundTint="@color/azulescuro"
+
         />
 
     <!-- Botão para ir para a tela de registro -->
@@ -72,7 +78,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
         android:text="Cadastre-se"
-        android:backgroundTint="@color/ciano"
+        android:backgroundTint="@color/azulescuro"
+
         />
 
     <!-- TextView para "Esqueceu a senha?" -->
@@ -85,5 +92,17 @@
         android:layout_marginTop="16dp"
         android:text="Esqueceu a senha?"
         android:textStyle="bold" />
+
+    <CheckBox
+        android:id="@+id/stayLoggedInCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Manter conectado"
+        android:layout_below="@id/passwordInputLayout"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="5dp"
+        android:textSize="10sp"
+        />
+
 
 </RelativeLayout>

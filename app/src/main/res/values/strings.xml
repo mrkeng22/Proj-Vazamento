@@ -47,4 +47,11 @@
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
+    <string name="dispositivo">Dispositivo</string>
+    <string name="fechar_abrir_valvula">Fechar/Abrir Valvula</string>
+    <string name="refresh">Refresh</string>
+    <string name="press_o">Pressão:</string>
+    <string name="vaz_o">Vazão:</string>
+    <string name="email">Email</string>
+    <string name="senha">Senha</string>
 </resources>

@@ -7,18 +7,19 @@
 
     <TextView
         android:id="@+id/titleTextView"
-        android:layout_width="339dp"
-        android:layout_height="98dp"
+        android:layout_width="316dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="72dp"
-        android:layout_marginTop="94dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="37dp"
+        android:layout_marginTop="83dp"
+        android:layout_marginEnd="42dp"
         android:text="CADASTRO DE DISPOSITIVO"
         android:textColor="@color/cinza"
-        android:textSize="35sp"
+        android:textSize="30sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+
+        />
 
     <EditText
         android:id="@+id/editTextDeviceName"
@@ -28,18 +29,22 @@
         android:layout_marginTop="228dp"
         android:background="@drawable/rounded_corner"
         android:hint="NOME DO DISPOSITIVO"
-        android:textColorHint="@color/white"/>
+        android:paddingLeft="10dp"
+        android:textColorHint="@color/white"
+        
+        />
 
 
     <EditText
         android:id="@+id/editTextDeviceType"
-        android:layout_width="389dp"
+        android:layout_width="395dp"
         android:layout_height="59dp"
         android:layout_below="@id/editTextDeviceName"
         android:layout_alignParentStart="true"
         android:layout_marginStart="0dp"
         android:layout_marginTop="22dp"
         android:background="@drawable/rounded_corner"
+        android:paddingLeft="10dp"
         android:hint="TIPO DE DISPOSITIVO"
         android:textColorHint="@color/white"
         />

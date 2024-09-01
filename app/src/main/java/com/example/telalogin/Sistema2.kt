@@ -13,12 +13,13 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.example.telalogin.databinding.ActivitySistema2Binding
 import com.google.android.material.navigation.NavigationView
-import com.example.telalogin.R
+import com.google.firebase.auth.FirebaseAuth
 
 class Sistema2 : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var binding: ActivitySistema2Binding
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navView: NavigationView
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +31,9 @@ class Sistema2 : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
 
         drawerLayout = binding.drawerLayout
         navView = binding.navView
+
+        // Inicializa FirebaseAuth
+        auth = FirebaseAuth.getInstance()
 
         // Configura o ActionBarDrawerToggle
         val toggle = ActionBarDrawerToggle(
@@ -50,6 +54,8 @@ class Sistema2 : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
         // Habilita o botão de menu no ActionBar
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
+
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -88,9 +94,11 @@ class Sistema2 : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
             super.onBackPressed()
         }
     }
+
     private fun irParaDispositivosMenu() {
         val segundaTela = Intent(this, DispositivosMenu::class.java)
         startActivity(segundaTela)
 
     }
+
 }

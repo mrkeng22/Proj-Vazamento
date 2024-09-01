@@ -10,7 +10,10 @@
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:backgroundTint="@color/ciano"
+
+        />
 
     <!-- Content layout -->
     <!-- Add your content layout here -->
@@ -19,5 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar"
-        android:layout_marginTop="0dp" />
+        android:layout_marginTop="0dp"
+
+        />
 </RelativeLayout>
