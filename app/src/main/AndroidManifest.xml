@@ -24,9 +24,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TelaLogin"
         tools:targetApi="31" >
-        <activity
-            android:name=".logo_inicial"
-            android:exported="false" />
 
         <service
             android:name=".MyBackgroundService"

@@ -54,4 +54,5 @@
     <string name="vaz_o">Vazão:</string>
     <string name="email">Email</string>
     <string name="senha">Senha</string>
+    <string name="title_activity_splash_home">splash_home</string>
 </resources>
