@@ -1,10 +1,12 @@
 package com.example.telalogin
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.telalogin.databinding.ActivityDispositivosMenuBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -68,6 +70,31 @@ class DispositivosMenu : AppCompatActivity() {
                 putExtra("deviceID", dispositivoId)
             }
             startActivity(intent)
+        }
+
+        // Adicionar um listener de clique longo para excluir o dispositivo
+        binding.listViewDispositivos.setOnItemLongClickListener { _, _, position, _ ->
+            val dispositivoId = dispositivosIDs[position]
+            val nomeDispositivo = dispositivosAdapter.getItem(position)
+
+            // Exibe um diálogo de confirmação
+            AlertDialog.Builder(this).apply {
+                setTitle("Excluir Dispositivo")
+                setMessage("Tem certeza que deseja excluir o dispositivo '$nomeDispositivo'?")
+                setPositiveButton("Sim") { _, _ ->
+                    // Remove o dispositivo do Firebase
+                    databaseRef.child(dispositivoId).removeValue().addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            Toast.makeText(this@DispositivosMenu, "Dispositivo excluído com sucesso!", Toast.LENGTH_SHORT).show()
+                        } else {
+                            Toast.makeText(this@DispositivosMenu, "Falha ao excluir o dispositivo.", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+                setNegativeButton("Não", null)
+            }.create().show()
+
+            true
         }
     }
 
