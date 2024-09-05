@@ -111,12 +111,12 @@
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="395dp"
-        android:layout_height="252dp"
+        android:layout_width="166dp"
+        android:layout_height="177dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="0dp"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="65dp"
         app:srcCompat="@drawable/hydro_paint_logo" />
 
 
