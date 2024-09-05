@@ -18,9 +18,9 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_hydro"
+        android:icon="@mipmap/ic_definitivo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_hydro_round"
+        android:roundIcon="@mipmap/ic_definitivo"
         android:supportsRtl="true"
         android:theme="@style/Theme.TelaLogin"
         tools:targetApi="31" >
@@ -69,12 +69,16 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
+            android:exported="true" />
+        <activity
+            android:name=".splash_home"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
     </application>
 
