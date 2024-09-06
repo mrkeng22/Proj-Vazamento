@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/cadastrar_novo_dispositivo"
-        android:title="Cadastrar Novo Dispositivo"
+        android:title=""
+        android:icon="@drawable/add_device"
         app:showAsAction="always" />
 </menu>

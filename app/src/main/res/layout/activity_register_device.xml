@@ -8,14 +8,16 @@
     <TextView
         android:id="@+id/titleTextView"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="150dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="20dp"
         android:text="CADASTRO DE DISPOSITIVO"
         android:textColor="@color/cinza"
-        android:textSize="26sp"
+        android:textSize="20sp"
         android:textStyle="bold" />
 
     <EditText
@@ -25,16 +27,12 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="228dp"
         android:background="@drawable/rounded_corner"
-        android:hint="NOME DO DISPOSITIVO"
+        android:hint="Nome do dispositivo"
         android:paddingLeft="10dp"
         android:textColorHint="@color/white"
         android:textStyle="italic"
         android:textColor="@color/white"
-
-        
         />
-
-
     <EditText
         android:id="@+id/editTextDeviceType"
         android:layout_width="395dp"
@@ -45,24 +43,35 @@
         android:layout_marginTop="22dp"
         android:background="@drawable/rounded_corner"
         android:paddingLeft="10dp"
-        android:hint="TIPO DE DISPOSITIVO"
+        android:hint="Tipo de dispositivo"
         android:textColorHint="@color/white"
         android:textStyle="italic"
         android:textColor="@color/white"
-
         />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="*O tipo de dispositivo é o sensor a ser utilizado (fluxo, pressão, registro)"
+            android:layout_marginTop="380dp"
+            android:layout_marginStart="10dp"
+            android:textStyle="italic"
+            android:textColor="@color/cinza_escuro"
+            />
 
     <Button
         android:id="@+id/buttonRegisterDevice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/editTextDeviceType"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="199dp"
-        android:layout_marginEnd="14dp"
-        android:text="Adicionar"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="250dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="110dp"
         android:backgroundTint="@color/azulescuro"
-        />
+        android:text="Adicionar"
+        android:textColor="@color/white" />
 
 
 
