@@ -80,16 +80,19 @@ class Sistema2 : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_help -> {
-                // Ação para "Ajuda"
                 irParaDispositivosMenu()
                 Toast.makeText(this, "Dispositivo selecionado", Toast.LENGTH_SHORT).show()
             }
             R.id.action_settings -> {
-                // Ação para "Dispositivos"
+                // Inicia a tela de Configurações
+                val intent = Intent(this, SettingsActivity::class.java)
+                startActivity(intent)
                 Toast.makeText(this, "Configurações selecionado", Toast.LENGTH_SHORT).show()
             }
             R.id.action_profile -> {
-                // Ação para "Perfil"
+                // Inicia a tela de Perfil
+                val intent = Intent(this, ProfileActivity::class.java)
+                startActivity(intent)
                 Toast.makeText(this, "Perfil selecionado", Toast.LENGTH_SHORT).show()
             }
         }

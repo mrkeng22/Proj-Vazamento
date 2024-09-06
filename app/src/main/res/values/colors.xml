@@ -8,7 +8,7 @@
 
     <color name="azulescuro">#5F6FFF </color>
     <color name="bordaLogin">#1F1FFF</color>
-    <color name="bateriaCor">#00FF00</color>
+    <color name = "cinza_escuro">#A9A9A9</color>
 
 
 </resources>
