@@ -5,27 +5,22 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Sistema2">
+    tools:context=".Sistema2"
+    tools:openDrawer="start">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <!-- Toolbar ajustada -->
+
         <!-- Conteúdo principal da sua atividade -->
+
         <FrameLayout
             android:id="@+id/content_frame"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
-
-            <com.google.android.material.navigation.NavigationView
-                android:id="@+id/nav_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="start"
-                app:menu="@menu/drawer_menu" />
-
+            android:layout_height="match_parent">
 
             <Button
                 android:id="@+id/btnLogout"
@@ -33,12 +28,27 @@
                 android:layout_height="wrap_content"
                 android:text="Desconectar-se"
                 android:textStyle="bold"
+                android:textColor="@color/white"
                 android:layout_gravity="center"
                 android:layout_marginLeft="100dp"
                 android:layout_marginTop="300dp"
-                android:backgroundTint="@color/azulescuro"
-                />
+                android:backgroundTint="@color/azulescuro" />
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/azulescuro"
+                android:layout_marginTop="16dp"/>
+
         </FrameLayout>
     </LinearLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:menu="@menu/drawer_menu" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

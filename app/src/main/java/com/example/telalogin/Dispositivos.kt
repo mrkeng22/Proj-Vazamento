@@ -232,12 +232,11 @@ class Dispositivos : AppCompatActivity() {
                     // Recuperar os valores de pressão, vazão e bateria do dispositivo
                     val pressao = dataSnapshot.child("pressure").getValue(Double::class.java)
                     val vazao = dataSnapshot.child("flow").getValue(Double::class.java)
-                    val bateria = dataSnapshot.child("battery").getValue(Int::class.java)
 
                     // Exibir os valores na interface do usuário, tratando valores nulos
                     textViewPressao.text = "Pressão: ${pressao ?: "N/A"}"
                     textViewVazao.text = "Vazão: ${vazao ?: "N/A"}"
-                    textViewBateria.text = "Bateria: ${bateria ?: "N/A"}"
+
 
                     // Adicionar os valores ao gráfico, apenas se não forem nulos
                     val timestamp = System.currentTimeMillis()

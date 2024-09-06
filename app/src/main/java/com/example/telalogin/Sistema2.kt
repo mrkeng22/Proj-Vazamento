@@ -39,9 +39,14 @@ class Sistema2 : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
         // Inicializa FirebaseAuth
         auth = FirebaseAuth.getInstance()
 
+        // Configura a Toolbar
+        setSupportActionBar(binding.toolbar)  // Configure a Toolbar como ActionBar
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeButtonEnabled(true)
+
         // Configura o ActionBarDrawerToggle
         val toggle = ActionBarDrawerToggle(
-            this, drawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+            this, drawerLayout, binding.toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
@@ -54,10 +59,6 @@ class Sistema2 : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
-        // Habilita o botão de menu no ActionBar
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setHomeButtonEnabled(true)
 
         // Inicializa o botão de logout
         btnLogout = findViewById(R.id.btnLogout)
@@ -139,6 +140,7 @@ class Sistema2 : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
         val alertDialog = builder.create()
         alertDialog.show()
     }
+
     private fun irParaDispositivosMenu() {
         val segundaTela = Intent(this, DispositivosMenu::class.java)
         startActivity(segundaTela)

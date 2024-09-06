@@ -81,7 +81,7 @@ class DispositivosMenu : AppCompatActivity() {
             AlertDialog.Builder(this).apply {
                 setTitle("Excluir Dispositivo")
                 setMessage("Tem certeza que deseja excluir o dispositivo '$nomeDispositivo'?")
-                setPositiveButton("Sim") { _, _ ->
+                setPositiveButton("Excluir") { _, _ ->
                     // Remove o dispositivo do Firebase
                     databaseRef.child(dispositivoId).removeValue().addOnCompleteListener { task ->
                         if (task.isSuccessful) {
