@@ -64,8 +64,8 @@ class MyBackgroundService : Service() {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) PendingIntent.FLAG_IMMUTABLE else 0
         )
         val notification: Notification = NotificationCompat.Builder(this, channelId)
-            .setContentTitle("My Background Service")
-            .setContentText("O serviço está rodando em segundo plano")
+            .setContentTitle("Notificação Hydro")
+            .setContentText("Seus dados estão sendo monitorados em segundo plano")
             .setSmallIcon(R.drawable.ic_stat_name)
             .setContentIntent(pendingIntent)
             .build()
@@ -103,8 +103,10 @@ class MyBackgroundService : Service() {
                     val flowRateValue = snapshot.child("flow").getValue(Double::class.java)
 
                     pressureValue?.let {
-                        Log.d("MyBackgroundService", "Dispositivo $nome - Novo valor de pressão: $it")
-                        sendNotification("Pressão Atualizada", "Dispositivo $nome - Novo valor de pressão: $it")
+                        if (it >= 1) {
+                            Log.d("MyBackgroundService", "Dispositivo $nome - Novo valor de pressão: $it")
+                            sendNotification("Pressão Alta", "Dispositivo $nome - Novo valor de pressão: $it")
+                        }
                     }
 
                     flowRateValue?.let {
@@ -119,6 +121,7 @@ class MyBackgroundService : Service() {
                     updateIntent.putExtra("flow", flowRateValue)
                     sendBroadcast(updateIntent)
                 }
+
 
                 override fun onChildRemoved(snapshot: DataSnapshot) {
                     // Não fazemos nada aqui

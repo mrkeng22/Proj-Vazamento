@@ -74,8 +74,8 @@ class Dispositivos : AppCompatActivity() {
                         val bateria = dataSnapshot.child("batteryLevel").getValue(Double::class.java)
 
                         // Exibir os valores na interface do usuário, tratando valores nulos
-                        textViewPressao.text = "Pressão: ${pressao ?: "N/A"}"
-                        textViewVazao.text = "Vazão: ${vazao ?: "N/A"}"
+                        textViewPressao.text = "Pressão: ${pressao ?: "N/A"} MPa"
+                        textViewVazao.text = "Vazão: ${vazao ?: "N/A"} L/s"
                         textViewBateria.text = "Bateria: ${bateria ?: "N/A"}%"
 
                         // Adicionar os valores ao gráfico, apenas se não forem nulos

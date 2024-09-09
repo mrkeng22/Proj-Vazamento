@@ -24,6 +24,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TelaLogin"
         tools:targetApi="31">
+        <activity
+            android:name=".activity_consumo"
+            android:exported="false"
+            android:label="@string/title_activity_consumo"
+            android:theme="@style/Theme.TelaLogin" />
+        <activity
+            android:name=".ui.theme.activity_consumo"
+            android:exported="false" />
+        <activity
+            android:name=".consumoTotalActivity"
+            android:exported="false" />
 
         <service
             android:name=".MyBackgroundService"
@@ -75,28 +86,24 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
         <activity
             android:name=".SettingsActivity"
             android:parentActivityName=".Sistema2">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Sistema2"/>
+                android:value=".Sistema2" />
         </activity>
-
         <activity
             android:name=".ProfileActivity"
             android:parentActivityName=".Sistema2">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Sistema2"/>
+                android:value=".Sistema2" />
         </activity>
-
-
     </application>
 
 </manifest>

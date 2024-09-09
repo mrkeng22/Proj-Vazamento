@@ -48,10 +48,11 @@ class RegisterDevice : AppCompatActivity() {
                 val deviceMap = mapOf(
                     "name" to deviceName,
                     "type" to deviceType,
-                    "pressure" to 0.0, // Initial value
-                    "flow" to 0.0,     // Initial value
-                    "state" to false,  // Initial value
-                    "batteryLevel" to 0.0 // Initial Value
+                    "pressure" to 0.0,       // Initial value
+                    "flow" to 0.0,           // Initial value
+                    "state" to false,        // Initial value
+                    "batteryLevel" to 0.0,   // Initial Value
+                    "totalConsumo" to 0.0    // New field for total consumption
                 )
 
                 database.child("customers").child(userId).child("devices").child(deviceId).setValue(deviceMap)
