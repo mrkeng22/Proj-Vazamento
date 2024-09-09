@@ -101,6 +101,17 @@ class MyBackgroundService : Service() {
                     val nome = snapshot.child("name").getValue(String::class.java)
                     val pressureValue = snapshot.child("pressure").getValue(Double::class.java)
                     val flowRateValue = snapshot.child("flow").getValue(Double::class.java)
+                    val batteryLevel = snapshot.child("batteryLevel").getValue(Double::class.java)
+
+
+                    batteryLevel.let {
+                        if (it != null) {
+                            if (it <= 15) {
+                                Log.d("MyBackgroundService", "Dispositivo $nome - novo valor de bateria: $it")
+                                sendNotification("Bateria Alta", "Dispositivo $nome - Bateria descarregando: $it")
+                            }
+                        }
+                    }
 
                     pressureValue?.let {
                         if (it >= 1) {
@@ -110,8 +121,16 @@ class MyBackgroundService : Service() {
                     }
 
                     flowRateValue?.let {
-                        Log.d("MyBackgroundService", "Dispositivo $nome - Novo valor de vazão: $it")
-                        sendNotification("Vazão Atualizada", "Dispositivo $nome - Novo valor de vazão: $it")
+                        if (it >= 30) {
+                            Log.d(
+                                "MyBackgroundService",
+                                "Dispositivo $nome - Novo valor de vazão: $it"
+                            )
+                            sendNotification(
+                                "Vazão Atualizada",
+                                "Dispositivo $nome - Novo valor de vazão: $it"
+                            )
+                        }
                     }
 
                     // Enviar broadcast para atualizar a atividade
