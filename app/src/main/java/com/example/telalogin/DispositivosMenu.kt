@@ -12,7 +12,7 @@ import com.example.telalogin.databinding.ActivityDispositivosMenuBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 
-class DispositivosMenu : AppCompatActivity() {
+open class DispositivosMenu : AppCompatActivity() {
     private lateinit var binding: ActivityDispositivosMenuBinding
     private lateinit var databaseRef: DatabaseReference
     private lateinit var dispositivosAdapter: ArrayAdapter<String> // ou outro adaptador que você esteja usando
@@ -112,4 +112,5 @@ class DispositivosMenu : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
+
 }

@@ -4,19 +4,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- Content layout -->
+    <!-- Add your content layout here -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
+        android:backgroundTint="@color/azulescuro"
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        android:backgroundTint="@color/azulescuro"
 
         />
 
-    <!-- Content layout -->
-    <!-- Add your content layout here -->
+
     <ListView
         android:id="@+id/listViewDispositivos"
         android:layout_width="match_parent"

@@ -13,5 +13,10 @@
             android:id="@+id/action_settings"
             android:icon="@drawable/configuracoes_sistema2"
             android:title="Configurações" />
+        <item
+            android:id="@+id/graphics"
+            android:icon="@drawable/graphics"
+            android:title="Graficos"
+            />
     </group>
 </menu>

@@ -96,6 +96,11 @@ class Sistema2 : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
                 startActivity(intent)
                 Toast.makeText(this, "Perfil selecionado", Toast.LENGTH_SHORT).show()
             }
+            R.id.graphics ->{
+                val intent = Intent(this, Graphics::class.java)
+                startActivity(intent)
+                Toast.makeText(this, "Graficos selecionado",Toast.LENGTH_SHORT).show()
+            }
         }
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
@@ -145,4 +150,5 @@ class Sistema2 : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
         val segundaTela = Intent(this, DispositivosMenu::class.java)
         startActivity(segundaTela)
     }
+
 }
