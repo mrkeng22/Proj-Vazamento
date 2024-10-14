@@ -71,10 +71,11 @@ public class Graphics extends AppCompatActivity {
             });
         }
 
+
         // Adicionar um listener de clique para mudar para a tela OptionGraphics ao clicar em um item
         binding.listViewDispositivos.setOnItemClickListener((parent, view, position, id) -> {
             String dispositivoId = dispositivosIDs.get(position); // Obtém o DeviceID
-            Intent intent = new Intent(Graphics.this, OptionGraphics.class);
+            Intent intent = new Intent(Graphics.this, GraphicsPeriod.class);
             intent.putExtra("deviceID", dispositivoId); // Passa o DeviceID para a próxima tela
             startActivity(intent);
         });

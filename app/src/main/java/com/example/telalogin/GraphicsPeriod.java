@@ -1,52 +1,120 @@
 package com.example.telalogin;
 //gráfico linechart
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import com.github.mikephil.charting.charts.LineChart;
+//fim gráfico linechart
+
+import java.util.ArrayList;
+import android.widget.Toast;
+import com.github.mikephil.charting.data.Entry;
+
 import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
-//fim gráfico linechart
-import java.util.List;
-import java.util.ArrayList;
-import com.github.mikephil.charting.data.Entry;
-import android.widget.Toast;
+import android.graphics.Color;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.View;
-import android.widget.Button;
+import java.util.List;
+import com.google.android.material.tabs.TabLayout;
+//Widget
+import android.widget.TableLayout;
 
 
+//gráfico linechart
+import android.os.Bundle;
 
-public class GraphicsPeriod extends AppCompatActivity implements View.OnClickListener{
-    private GraphicsValues valoresxy;
-    ArrayList<Entry> valores;
+import com.github.mikephil.charting.charts.LineChart;
+//fim gráfico linechart
+
+import java.util.ArrayList;
+import android.widget.Toast;
+import com.github.mikephil.charting.data.Entry;
+
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import android.graphics.Color;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.view.View;
+import java.util.List;
+//Widget
+import android.widget.TableLayout;
+public class GraphicsPeriod extends AppCompatActivity {
+
+    private LineChart chart;
+    private TabLayout tabLayout;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graphics_period);
-        Button buttonSemana = findViewById(R.id.Semana);
-        Button buttonMes = findViewById(R.id.Mes);
-        Button buttonAno = findViewById(R.id.Ano);
-        //definir o mesmo onclick
-        buttonSemana.setOnClickListener(this);
-        buttonMes.setOnClickListener(this);
-        buttonAno.setOnClickListener(this);
 
+        chart = findViewById(R.id.chart2);
+        tabLayout = findViewById(R.id.tabl); // Use TabLayout aqui
+
+        configureGraphics();
+
+        // Adiciona um listener para as abas
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                switch (tab.getPosition()) {
+                    case 0: // Semana
+                        Toast.makeText(GraphicsPeriod.this, "Valores da Semana", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 1: // Mês
+                        Toast.makeText(GraphicsPeriod.this, "Valores do Mês", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 2: // Ano
+                        Toast.makeText(GraphicsPeriod.this, "Valores do Ano", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                // Não faça nada aqui
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                // Não faça nada aqui
+            }
+        });
     }
 
-    @Override
-    public void onClick(View v) {
-        if (v.getId() == R.id.Semana) {
-            Toast.makeText(this, "", Toast.LENGTH_SHORT).show();//aqui sera adicionado a lista dos valores para o grafico
-        } else if (v.getId() == R.id.Mes) {
-            Toast.makeText(this, "lista de valores de x e y referente ao mes", Toast.LENGTH_SHORT).show();//aqui sera adicionado a lista dos valores para o grafico
-        } else if (v.getId() == R.id.Ano) {
-            Toast.makeText(this, "lista dos valores de x e y referendte ao ano", Toast.LENGTH_SHORT).show();//aqui sera adicionado a lista dos valores para o grafico
-        }
+    public void configureGraphics() {
+        List<Entry> entries = new ArrayList<>();
+        entries.add(new Entry(0, 1));
+        entries.add(new Entry(1, 2));
+        entries.add(new Entry(2, 0));
+
+        LineDataSet dataSet = new LineDataSet(entries, "valores");
+        dataSet.setColor(Color.BLUE); // Personalize a cor da linha
+        dataSet.setValueTextColor(Color.BLACK); // Cor dos valores
+
+        LineData data = new LineData(dataSet);
+        chart.setData(data);
+
+        // Configurar eixo X e Y
+        XAxis xAxis = chart.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+
+        YAxis leftAxis = chart.getAxisLeft();
+        leftAxis.setDrawGridLines(false);
+
+        YAxis rightAxis = chart.getAxisRight();
+        rightAxis.setEnabled(false);  // Desabilita o eixo direito
+
+        chart.invalidate(); // Atualiza o gráfico
     }
 }
-
