@@ -17,6 +17,8 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.ValueFormatter
+import com.github.mikephil.charting.components.LimitLine
+import com.github.mikephil.charting.components.YAxis
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import java.text.SimpleDateFormat
@@ -36,7 +38,6 @@ class Dispositivos : AppCompatActivity() {
     private val handler = Handler(Looper.getMainLooper())
     private val updateInterval: Long = 5000 // 5 segundos
     private val timeFormat = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dispositivos)
@@ -54,6 +55,7 @@ class Dispositivos : AppCompatActivity() {
 
         // Configurar o gráfico
         configureChart()
+
 
         // Inicializar o banco de dados Firebase
         val userId = FirebaseAuth.getInstance().currentUser?.uid
@@ -115,6 +117,30 @@ class Dispositivos : AppCompatActivity() {
             Toast.makeText(this, "Erro ao carregar o dispositivo. Por favor, tente novamente.", Toast.LENGTH_SHORT).show()
         }
     }
+    fun limitePressao() {
+        val chart: LineChart = findViewById(R.id.chart)
+        val limitePress = LimitLine(6f, "limite Presssão")
+        limitePress.lineWidth = 4f
+        limitePress.enableDashedLine(6f, 6f, 0f)
+        limitePress.labelPosition = LimitLine.LimitLabelPosition.RIGHT_TOP
+        limitePress.textSize = 4f
+        val yAxis: YAxis = chart.axisLeft
+        yAxis.addLimitLine(limitePress)
+        chart.invalidate()
+    }
+
+    fun limiteVazao() {
+        val chart: LineChart = findViewById(R.id.chart)
+        val limitePress = LimitLine(2f, "limite Presssão")
+        limitePress.lineWidth = 3f
+        limitePress.enableDashedLine(6f, 6f, 5f)
+        limitePress.labelPosition = LimitLine.LimitLabelPosition.RIGHT_TOP
+        limitePress.textSize = 4f
+        val yAxis: YAxis = chart.axisLeft
+        yAxis.addLimitLine(limitePress)
+        chart.invalidate()
+    }
+
 
     private fun configureChart() {
         // Configurar o estilo do gráfico
