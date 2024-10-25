@@ -29,81 +29,61 @@
         android:id="@+id/textViewVazao"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="300dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="28dp"
         android:text="Vazão: "
         android:textSize="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        tools:ignore="MissingConstraints"
-        />
+        tools:ignore="MissingConstraints" />
+
+
     <TextView
         android:id="@+id/textViewPressao"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="140dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="35dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="40dp"
         android:text="Pressão: "
         android:textSize="20dp"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:ignore="MissingConstraints"
-        />
-
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/textViewBateria"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/textViewVazao"
-        android:layout_marginTop="5dp"
+        android:layout_marginStart="140dp"
         android:text="Bateria: 0.0"
-        android:textSize="18sp"
-        android:layout_marginStart="20dp"
+        android:textSize="20dp"
         app:layout_constraintStart_toStartOf="parent"
 
 
-        app:layout_constraintTop_toBottomOf="@+id/textViewVazao"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="68dp" />
 
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/chart"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_marginStart="0dp"
-        android:layout_marginBottom="200dp"
-        android:layout_marginTop="150dp"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
+        android:layout_width="412dp"
+        android:layout_height="512dp"
+        android:layout_marginTop="84dp"
         android:background="@color/white"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="2dp" />
 
     <Button
         android:id="@+id/btnValv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="220dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="32dp"
         android:backgroundTint="@color/azulescuro"
         android:text="@string/fechar_abrir_valvula"
         app:layout_constraintTop_toBottomOf="@+id/chart"
-        tools:ignore="MissingConstraints" />
-
-    <Button
-        android:id="@+id/btnColetarDados"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="220dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="10dp"
-        android:backgroundTint="@color/azulescuro"
-        android:text="Atualizar"
-        app:layout_constraintTop_toBottomOf="@+id/chart"
-        app:layout_constraintStart_toEndOf="@+id/btnValv"
         tools:ignore="MissingConstraints"
-        />
+        tools:layout_editor_absoluteX="95dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

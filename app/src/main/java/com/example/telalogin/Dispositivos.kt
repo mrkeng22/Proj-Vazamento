@@ -32,7 +32,7 @@ class Dispositivos : AppCompatActivity() {
     private lateinit var textViewBateria: TextView
     private lateinit var chart: LineChart
     private lateinit var btnValv: Button
-    private lateinit var btnColetarDados: Button
+
     private val pressureEntries = LinkedList<Entry>()
     private val flowEntries = LinkedList<Entry>()
     private val handler = Handler(Looper.getMainLooper())
@@ -51,7 +51,7 @@ class Dispositivos : AppCompatActivity() {
         textViewBateria = findViewById(R.id.textViewBateria) // Inicializa a TextView da bateria
         chart = findViewById(R.id.chart)
         btnValv = findViewById(R.id.btnValv)
-        btnColetarDados = findViewById(R.id.btnColetarDados) // Inicializar o botão de coleta de dados
+        // Inicializar o botão de coleta de dados
 
         // Configurar o gráfico
         configureChart()
@@ -107,10 +107,7 @@ class Dispositivos : AppCompatActivity() {
                 toggleState()
             }
 
-            // Configurar o botão para coletar dados do Firebase
-            btnColetarDados.setOnClickListener {
-                coletarDadosDoFirebase()
-            }
+
 
         } else {
             Log.e("Firebase", "userId ou dispositivoId é nulo.")
