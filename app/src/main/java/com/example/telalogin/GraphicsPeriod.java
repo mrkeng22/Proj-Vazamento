@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
-import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.*;
 
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -25,6 +25,7 @@ import android.view.View;
 import java.util.List;
 
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.material.tabs.TabLayout;
 //Widget
 import android.widget.TableLayout;
@@ -69,7 +70,26 @@ public class GraphicsPeriod extends AppCompatActivity {
 
         chart = findViewById(R.id.chart2);
         TabLayout tabLayout = findViewById(R.id.tabl);
+        entries.clear();
+        labels.clear();
+        //============Dias da Semana===========
+        labels.add("Domingo");
+        labels.add("Segunda-feira");
+        labels.add("Terça-feira");
+        labels.add("Quarta-feira");
+        labels.add("Quinta-feira");
+        labels.add("Sexta-feira");
+        labels.add("Sábado");
 
+        //============Dias da Semana===========
+        entries.add(new Entry(0f, 100f));
+        entries.add(new Entry(1f, 200f));
+        entries.add(new Entry(2f, 30f));
+        entries.add(new Entry(3f, 20f));
+        entries.add(new Entry(4f, 500f));
+        entries.add(new Entry(5f, 600f));
+        entries.add(new Entry(6f, 200f));
+        configureGraphics();
 
         TabLayout semana = findViewById(R.id.Semana);
 
@@ -79,28 +99,88 @@ public class GraphicsPeriod extends AppCompatActivity {
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+
+
+
                 switch (tab.getPosition()) {
                     case 0: // Semana
-                        entries.add(new Entry(0, 1));
-                        entries.add(new Entry(1, 2));
-                        entries.add(new Entry(2, 0));
+                        entries.clear();
+                        labels.clear();
+                        //============Dias da Semana===========
+                        labels.add("Domingo");
+                        labels.add("Segunda-feira");
+                        labels.add("Terça-feira");
+                        labels.add("Quarta-feira");
+                        labels.add("Quinta-feira");
+                        labels.add("Sexta-feira");
+                        labels.add("Sábado");
+
+                        //============Dias da Semana===========
+                        entries.add(new Entry(0f, 100f));
+                        entries.add(new Entry(1f, 200f));
+                        entries.add(new Entry(2f, 30f));
+                        entries.add(new Entry(3f, 20f));
+                        entries.add(new Entry(4f, 500f));
+                        entries.add(new Entry(5f, 600f));
+                        entries.add(new Entry(6f, 200f));
+
+
                         break;
-                    case 1: // Mês
+                    case 1: //
+                        entries.clear();
+                        labels.clear();
+
                         labels.add("Janeiro");
                         labels.add("Fevereiro");
                         labels.add("Março");
-                        entries.add(new Entry(0f, 10f)); // "Label1"
-                        entries.add(new Entry(1f, 20f)); // "Label2"
-                        entries.add(new Entry(2f, 15f));
-                        IndexAxisValueFormatter formatter = new IndexAxisValueFormatter(labels);
-                        XAxis xAxis = chart.getXAxis();
-                        xAxis.setValueFormatter(formatter);
-                        break;
-                    case 2: // Ano
-                        entries.add(new Entry(2024, 1));
+                        labels.add("Abril");
+                        labels.add("Maio");
+                        labels.add("Junho");
+                        labels.add("Julho");
+                        labels.add("Agosto");
+                        labels.add("Setembro");
+                        labels.add("Outubro");
+                        labels.add("Novembro");
+                        labels.add("Dezembro");
+                        //============meses===========
+
+                        entries.add(new Entry(0f, 10f));
+                        entries.add(new Entry(1f, 2000f));
+                        entries.add(new Entry(2f, 500f));
+                        entries.add(new Entry(3f, 3000f));
+                        entries.add(new Entry(4f, 40f));
+                        entries.add(new Entry(5f, 5000f));
+                        entries.add(new Entry(6f, 6000f));
+                        entries.add(new Entry(7f, 400f));
+                        entries.add(new Entry(8f, 8000f));
+                        entries.add(new Entry(9f, 900f));
+                        entries.add(new Entry(10f, 10f));
+                        entries.add(new Entry(11f, 11000f));
+
+
 
                         break;
+                    case 2: // Ano
+                        entries.clear();
+                        labels.clear();
+                        entries.add(new Entry(2001, 1000f));
+                        entries.add(new Entry(2002, 2000f));
+                        entries.add(new Entry(2003, 3000f));
+                        entries.add(new Entry(2004, 4000f));
+                        entries.add(new Entry(2005, 5000f));
+
+
+                        break;
+
                 }
+                // Crie o formatter
+                IndexAxisValueFormatter formatter = new IndexAxisValueFormatter(labels);
+
+                // Configure o eixo X
+                XAxis xAxis = chart.getXAxis();
+                xAxis.setValueFormatter(formatter);
+                xAxis.setGranularity(1f); // Para garantir que todos os rótulos sejam exibidos
+                xAxis.setPosition(XAxis.XAxisPosition.BOTTOM); // Posiciona os rótulos abaixo do gráfico
                 configureGraphics();
 
             }
@@ -136,7 +216,26 @@ public class GraphicsPeriod extends AppCompatActivity {
 
         YAxis rightAxis = chart.getAxisRight();
         rightAxis.setEnabled(false);  // Desabilita o eixo direito
+        chart.setTouchEnabled(true);
+        chart.setEnabled(true);
+//======================================Zoom in Graphic====================================
+        chart.setPinchZoom(true); // Habilita o zoom por gestos
+        chart.setScaleXEnabled(true); // Habilita o zoom no eixo X
+        chart.setScaleYEnabled(true); // Habilita o zoom no eixo Y
+        chart.setAutoScaleMinMaxEnabled(true);
 
-        chart.invalidate(); // Atualiza o gráfico
+
+//======================================Zoom in Graphic====================================
+//======================================Color in Graphic====================================
+        int color = ColorTemplate.JOYFUL_COLORS[0];
+        dataSet.setColor(color);
+        dataSet.setValueTextColor(Color.BLUE);
+        dataSet.setValueTextSize(20f);
+        dataSet.setDrawFilled(true);
+        dataSet.setFillColor(Color.BLUE);
+        dataSet.setFillAlpha(100);
+//======================================Color in Graphic====================================
+        chart.invalidate(); // Atualiza o gráfico[
+
     }
 }
