@@ -1,5 +1,6 @@
 package com.example.telalogin;
 //gráfico linechart
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import com.example.telalogin.databinding.ActivityDispositivosMenuBinding;
@@ -9,6 +10,7 @@ import com.github.mikephil.charting.charts.LineChart;
 import java.util.ArrayList;
 
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
 import com.github.mikephil.charting.data.*;
 
@@ -62,12 +64,16 @@ public class GraphicsPeriod extends AppCompatActivity {
     private ActivityDispositivosMenuBinding binding;
     List<Entry> entries = new ArrayList<>();
     ArrayList<String> labels = new ArrayList<>();
+    AutoCompleteTextView autoCompleteTextView;
+    ArrayAdapter<String> items;
     private ArrayAdapter<String> dispositivosAdapter;
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graphics_period);
-
+        autoCompleteTextView = findViewById(R.id.autoCompleteTextView);
+        items = new ArrayAdapter<String>(this, R.layout.activity_list_item);
         chart = findViewById(R.id.chart2);
         TabLayout tabLayout = findViewById(R.id.tabl);
 
@@ -90,7 +96,7 @@ public class GraphicsPeriod extends AppCompatActivity {
         entries.add(new Entry(6f, 200f));
         configureGraphics();
 
-        TabLayout semana = findViewById(R.id.Semana);
+
 
 
 

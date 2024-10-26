@@ -32,7 +32,8 @@ class Dispositivos : AppCompatActivity() {
     private lateinit var textViewBateria: TextView
     private lateinit var chart: LineChart
     private lateinit var btnValv: Button
-
+    private var pressaoGloba =0.0
+    private var vazaoGlobal = 0.0
     private val pressureEntries = LinkedList<Entry>()
     private val flowEntries = LinkedList<Entry>()
     private val handler = Handler(Looper.getMainLooper())
@@ -74,7 +75,11 @@ class Dispositivos : AppCompatActivity() {
                     if (dataSnapshot.exists()) {
                         // Recuperar os valores de pressão, vazão e bateria do dispositivo
                         val pressao = dataSnapshot.child("pressure").getValue(Double::class.java)
+                        if(pressao != null){pressaoGloba = pressao.toDouble()
+                        }
                         val vazao = dataSnapshot.child("flow").getValue(Double::class.java)
+                        if(vazao != null){vazaoGlobal = vazao.toDouble()
+                        }
                         val bateria = dataSnapshot.child("batteryLevel").getValue(Double::class.java)
 
                         // Exibir os valores na interface do usuário, tratando valores nulos
@@ -188,25 +193,46 @@ class Dispositivos : AppCompatActivity() {
 
         val pressureDataSet = LineDataSet(pressureEntries, "Pressão")
         val flowDataSet = LineDataSet(flowEntries, "Vazão")
+        if(pressaoGloba<100.00) {
+            // Configurações de estilo para o conjunto de dados de pressão
+            pressureDataSet.color = Color.BLUE
+            pressureDataSet.valueTextColor = Color.BLUE
+            pressureDataSet.lineWidth = 2f // Espessura da linha
+            pressureDataSet.circleRadius = 5f // Tamanho do círculo nos pontos
+            pressureDataSet.setCircleColor(Color.BLUE) // C or do círculo nos pontos
+            pressureDataSet.setDrawCircles(true) // Mostrar círculos nos pontos
+            pressureDataSet.setDrawValues(false) // Não mostrar os valores dos pontos
+        }
+        else{
+            // Configurações de estilo para o conjunto de dados de pressão
+            pressureDataSet.color = Color.RED
+            pressureDataSet.valueTextColor = Color.RED
+            pressureDataSet.lineWidth = 2f // Espessura da linha
+            pressureDataSet.circleRadius = 5f // Tamanho do círculo nos pontos
+            pressureDataSet.setCircleColor(Color.RED) // C or do círculo nos pontos
+            pressureDataSet.setDrawCircles(true) // Mostrar círculos nos pontos
+            pressureDataSet.setDrawValues(false) // Não mostrar os valores dos pontos
 
-        // Configurações de estilo para o conjunto de dados de pressão
-        pressureDataSet.color = Color.RED
-        pressureDataSet.valueTextColor = Color.RED
-        pressureDataSet.lineWidth = 2f // Espessura da linha
-        pressureDataSet.circleRadius = 5f // Tamanho do círculo nos pontos
-        pressureDataSet.setCircleColor(Color.RED) // Cor do círculo nos pontos
-        pressureDataSet.setDrawCircles(true) // Mostrar círculos nos pontos
-        pressureDataSet.setDrawValues(false) // Não mostrar os valores dos pontos
-
+        }
         // Configurações de estilo para o conjunto de dados de vazão
-        flowDataSet.color = Color.GREEN
-        flowDataSet.valueTextColor = Color.GREEN
-        flowDataSet.lineWidth = 2f // Espessura da linha
-        flowDataSet.circleRadius = 5f // Tamanho do círculo nos pontos
-        flowDataSet.setCircleColor(Color.GREEN) // Cor do círculo nos pontos
-        flowDataSet.setDrawCircles(true) // Mostrar círculos nos pontos
-        flowDataSet.setDrawValues(false) // Não mostrar os valores dos pontos
-
+        if(vazaoGlobal<1000.00) {
+            flowDataSet.color = Color.GREEN
+            flowDataSet.valueTextColor = Color.GREEN
+            flowDataSet.lineWidth = 2f // Espessura da linha
+            flowDataSet.circleRadius = 5f // Tamanho do círculo nos pontos
+            flowDataSet.setCircleColor(Color.GREEN) // Cor do círculo nos pontos
+            flowDataSet.setDrawCircles(true) // Mostrar círculos nos pontos
+            flowDataSet.setDrawValues(false) // Não mostrar os valores dos pontos
+        }
+        else{
+            flowDataSet.color = Color.RED
+            flowDataSet.valueTextColor = Color.RED
+            flowDataSet.lineWidth = 2f // Espessura da linha
+            flowDataSet.circleRadius = 5f // Tamanho do círculo nos pontos
+            flowDataSet.setCircleColor(Color.RED) // Cor do círculo nos pontos
+            flowDataSet.setDrawCircles(true) // Mostrar círculos nos pontos
+            flowDataSet.setDrawValues(false) // Não mostrar os valores dos pontos
+        }
         val lineData = LineData(pressureDataSet, flowDataSet)
         chart.data = lineData
         chart.invalidate() // Atualizar o gráfico

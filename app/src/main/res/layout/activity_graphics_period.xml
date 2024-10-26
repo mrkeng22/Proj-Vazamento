@@ -3,41 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:ignore="ExtraText">
 
 
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/chart2"
-        android:layout_width="409dp"
-        android:layout_height="613dp"
+        android:layout_width="414dp"
+        android:layout_height="644dp"
         android:background="@color/white"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="2dp"
-        tools:layout_editor_absoluteY="117dp" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Gráficos"
-        android:textColor="@color/cinza"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_marginStart="110dp"
-        android:layout_marginEnd="119dp"
-        android:layout_marginTop="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
-
+        tools:layout_editor_absoluteX="-3dp"
+        tools:layout_editor_absoluteY="86dp" />
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabl"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_width="411dp"
+        android:layout_height="34dp"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="-1dp"
-        tools:layout_editor_absoluteY="37dp">
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="54dp">
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/Semana"
@@ -57,6 +41,23 @@
             android:layout_height="wrap_content"
             android:text="Ano" />
     </com.google.android.material.tabs.TabLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="214dp"
+        android:layout_height="40dp"
+        android:hint="@string/select"
+        android:style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="209dp"
+        tools:layout_editor_absoluteY="16dp">
+
+        <AutoCompleteTextView
+            android:id="@id/autoCompleteTextView"
+            android:layout_width="195dp"
+            android:layout_height="30dp"
+            android:inputType="none"
+             />
+    </com.google.android.material.textfield.TextInputLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
