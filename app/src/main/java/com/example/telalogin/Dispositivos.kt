@@ -54,6 +54,8 @@ class Dispositivos : AppCompatActivity() {
         // Inicializar o botão de coleta de dados
 
         // Configurar o gráfico
+        limitePressao()
+        limiteVazao()
         configureChart()
 
 
@@ -116,7 +118,7 @@ class Dispositivos : AppCompatActivity() {
     }
     fun limitePressao() {
         val chart: LineChart = findViewById(R.id.chart)
-        val limitePress = LimitLine(6f, "limite Presssão")
+        val limitePress = LimitLine(1f, "limite Presssão")
         limitePress.lineWidth = 4f
         limitePress.enableDashedLine(6f, 6f, 0f)
         limitePress.labelPosition = LimitLine.LimitLabelPosition.RIGHT_TOP
@@ -128,7 +130,7 @@ class Dispositivos : AppCompatActivity() {
 
     fun limiteVazao() {
         val chart: LineChart = findViewById(R.id.chart)
-        val limitePress = LimitLine(2f, "limite Presssão")
+        val limitePress = LimitLine(0.2f, "limite Presssão")
         limitePress.lineWidth = 3f
         limitePress.enableDashedLine(6f, 6f, 5f)
         limitePress.labelPosition = LimitLine.LimitLabelPosition.RIGHT_TOP

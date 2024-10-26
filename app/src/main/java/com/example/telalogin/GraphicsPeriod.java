@@ -70,8 +70,7 @@ public class GraphicsPeriod extends AppCompatActivity {
 
         chart = findViewById(R.id.chart2);
         TabLayout tabLayout = findViewById(R.id.tabl);
-        entries.clear();
-        labels.clear();
+
         //============Dias da Semana===========
         labels.add("Domingo");
         labels.add("Segunda-feira");
@@ -163,11 +162,17 @@ public class GraphicsPeriod extends AppCompatActivity {
                     case 2: // Ano
                         entries.clear();
                         labels.clear();
-                        entries.add(new Entry(2001, 1000f));
-                        entries.add(new Entry(2002, 2000f));
-                        entries.add(new Entry(2003, 3000f));
-                        entries.add(new Entry(2004, 4000f));
-                        entries.add(new Entry(2005, 5000f));
+                        labels.add("2023");
+                        labels.add("2024");
+                        labels.add("2025");
+                        labels.add("2026");
+                        labels.add("2027");
+
+                        entries.add(new Entry(0f, 1000f));
+                        entries.add(new Entry(1f, 2000f));
+                        entries.add(new Entry(2f, 3000f));
+                        entries.add(new Entry(3f, 4000f));
+                        entries.add(new Entry(4f, 5000f));
 
 
                         break;
