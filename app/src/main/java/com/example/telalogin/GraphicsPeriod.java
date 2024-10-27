@@ -7,8 +7,10 @@ import com.example.telalogin.databinding.ActivityDispositivosMenuBinding;
 import com.github.mikephil.charting.charts.LineChart;
 //fim gráfico linechart
 
+import java.security.KeyStore;
 import java.util.ArrayList;
 
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
@@ -47,6 +49,7 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.snapshot.Index;
 
 import android.graphics.Color;
@@ -59,12 +62,13 @@ import java.util.List;
 //Widget
 import android.widget.TableLayout;
 public class GraphicsPeriod extends AppCompatActivity {
-
+    String[] item = {"Pressão", "Vazão"};
     private LineChart chart;
     private ActivityDispositivosMenuBinding binding;
     List<Entry> entries = new ArrayList<>();
     ArrayList<String> labels = new ArrayList<>();
-    AutoCompleteTextView autoCompleteTextView;
+
+
     ArrayAdapter<String> items;
     private ArrayAdapter<String> dispositivosAdapter;
     @SuppressLint("MissingInflatedId")
@@ -72,8 +76,19 @@ public class GraphicsPeriod extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graphics_period);
-        autoCompleteTextView = findViewById(R.id.autoCompleteTextView);
+        AutoCompleteTextView autoCompleteTextView = findViewById(R.id.selecttext);
         items = new ArrayAdapter<String>(this, R.layout.activity_list_item);
+        autoCompleteTextView.setAdapter(items);
+        autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String item = parent.getItemAtPosition(position).toString();
+                Toast.makeText(GraphicsPeriod.this, item, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
         chart = findViewById(R.id.chart2);
         TabLayout tabLayout = findViewById(R.id.tabl);
 

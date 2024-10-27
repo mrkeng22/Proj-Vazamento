@@ -43,20 +43,21 @@
     </com.google.android.material.tabs.TabLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="214dp"
+        android:layout_width="210dp"
         android:layout_height="40dp"
         android:hint="@string/select"
-        android:style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="209dp"
-        tools:layout_editor_absoluteY="16dp">
+        tools:layout_editor_absoluteX="202dp"
+        tools:layout_editor_absoluteY="2dp"
+        android:style="@style/MyCustomStyle"
+        >
 
         <AutoCompleteTextView
-            android:id="@id/autoCompleteTextView"
-            android:layout_width="195dp"
-            android:layout_height="30dp"
+            android:id="@+id/selecttext"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
             android:inputType="none"
-             />
+            android:padding="16dp"/>
     </com.google.android.material.textfield.TextInputLayout>
 
 

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="MyCustomStyle" parent="Widget.AppCompat.TextInputLayout">
+        <item name="colorPrimary">
+        @color/</item></style>
+</resources>
