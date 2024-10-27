@@ -76,17 +76,7 @@ public class GraphicsPeriod extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graphics_period);
-        AutoCompleteTextView autoCompleteTextView = findViewById(R.id.selecttext);
-        items = new ArrayAdapter<String>(this, R.layout.activity_list_item);
-        autoCompleteTextView.setAdapter(items);
-        autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
 
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String item = parent.getItemAtPosition(position).toString();
-                Toast.makeText(GraphicsPeriod.this, item, Toast.LENGTH_SHORT).show();
-            }
-        });
 
 
         chart = findViewById(R.id.chart2);

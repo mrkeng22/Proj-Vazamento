@@ -1,6 +1,11 @@
 package com.example.telalogin
 
+import android.annotation.SuppressLint
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -9,6 +14,9 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
+
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.AxisBase
@@ -39,6 +47,8 @@ class Dispositivos : AppCompatActivity() {
     private val handler = Handler(Looper.getMainLooper())
     private val updateInterval: Long = 5000 // 5 segundos
     private val timeFormat = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
+    private val CHANNEL_ID = "my_channel_id"
+    private val notificationId = 1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dispositivos)
@@ -204,6 +214,7 @@ class Dispositivos : AppCompatActivity() {
             pressureDataSet.setDrawValues(false) // Não mostrar os valores dos pontos
         }
         else{
+            showNotification("Alerta", "Pressão alta")
             // Configurações de estilo para o conjunto de dados de pressão
             pressureDataSet.color = Color.RED
             pressureDataSet.valueTextColor = Color.RED
@@ -233,6 +244,8 @@ class Dispositivos : AppCompatActivity() {
             flowDataSet.setDrawCircles(true) // Mostrar círculos nos pontos
             flowDataSet.setDrawValues(false) // Não mostrar os valores dos pontos
         }
+
+
         val lineData = LineData(pressureDataSet, flowDataSet)
         chart.data = lineData
         chart.invalidate() // Atualizar o gráfico
@@ -244,6 +257,38 @@ class Dispositivos : AppCompatActivity() {
 
         Log.d("Chart", "Atualização do gráfico completa.")
     }
+
+    //=========notification===================================================================
+
+    private fun createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val name = getString(R.string.channel_name)
+            val descriptionText = getString(R.string.channel_description)
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
+                description = descriptionText
+            }
+            // Registre o canal com o sistema
+            val notificationManager: NotificationManager =
+                getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun showNotification(title: String, message: String) {
+        val builder = NotificationCompat.Builder(this, CHANNEL_ID)
+            .setSmallIcon(R.drawable.ic_notification) // Ícone da notificação - crie este ícone em drawable
+            .setContentTitle(title)
+            .setContentText(message)
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+
+        with(NotificationManagerCompat.from(this)) {
+            notify(notificationId, builder.build())
+        }
+    }
+
+    //=========notification===================================================================
 
     private fun formatTime(timeInMillis: Long): Float {
         val calendar = Calendar.getInstance()

@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <style name="MyCustomStyle" parent="Widget.AppCompat.TextView">
-        <item name="colorPrimary">
-        @color/black</item></style>
-</resources>
