@@ -1,257 +1,149 @@
 package com.example.telalogin;
-//gráfico linechart
+
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.Toast;
+import android.widget.ToggleButton;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.telalogin.databinding.ActivityDispositivosMenuBinding;
 import com.github.mikephil.charting.charts.LineChart;
-//fim gráfico linechart
-
-import java.security.KeyStore;
-import java.util.ArrayList;
-
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.Toast;
-import com.github.mikephil.charting.data.*;
-
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
-import android.graphics.Color;
-
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.view.View;
-import java.util.List;
-
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.material.tabs.TabLayout;
-//Widget
-import android.widget.TableLayout;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-
-//gráfico linechart
-import android.os.Bundle;
-
-import com.github.mikephil.charting.charts.LineChart;
-//fim gráfico linechart
-
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import android.widget.Toast;
-import com.github.mikephil.charting.data.Entry;
-
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.components.YAxis;
-import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.database.snapshot.Index;
-
-import android.graphics.Color;
-
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.view.View;
+import java.util.HashMap;
 import java.util.List;
-//Widget
-import android.widget.TableLayout;
+import java.util.Locale;
+import java.util.Map;
+
 public class GraphicsPeriod extends AppCompatActivity {
-    String[] item = {"Pressão", "Vazão"};
     private LineChart chart;
-    private ActivityDispositivosMenuBinding binding;
+    private DatabaseReference databaseRef;
+    private String dispositivoId;
+    private SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
     List<Entry> entries = new ArrayList<>();
     ArrayList<String> labels = new ArrayList<>();
+    private String deviceId;
 
-
-    ArrayAdapter<String> items;
-    private ArrayAdapter<String> dispositivosAdapter;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graphics_period);
 
+        Intent intent = getIntent();
+        if (intent != null) {
+            dispositivoId = intent.getStringExtra("deviceID");
+            if (dispositivoId != null) {
+                deviceId = dispositivoId;
+                chart = findViewById(R.id.chart2);
+                TabLayout tabLayout = findViewById(R.id.tabl);
+                ToggleButton toggleButton = findViewById(R.id.toggleButton);
 
+                toggleButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                    carregarDadosFirebase(isChecked ? "pressure" : "flow");
+                });
 
-        chart = findViewById(R.id.chart2);
-        TabLayout tabLayout = findViewById(R.id.tabl);
+                tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                    @Override
+                    public void onTabSelected(TabLayout.Tab tab) {
+                        carregarDadosFirebase(toggleButton.isChecked() ? "pressure" : "flow");
+                    }
 
-        //============Dias da Semana===========
-        labels.add("Domingo");
-        labels.add("Segunda-feira");
-        labels.add("Terça-feira");
-        labels.add("Quarta-feira");
-        labels.add("Quinta-feira");
-        labels.add("Sexta-feira");
-        labels.add("Sábado");
+                    @Override
+                    public void onTabUnselected(TabLayout.Tab tab) {}
 
-        //============Dias da Semana===========
-        entries.add(new Entry(0f, 100f));
-        entries.add(new Entry(1f, 200f));
-        entries.add(new Entry(2f, 30f));
-        entries.add(new Entry(3f, 20f));
-        entries.add(new Entry(4f, 500f));
-        entries.add(new Entry(5f, 600f));
-        entries.add(new Entry(6f, 200f));
-        configureGraphics();
+                    @Override
+                    public void onTabReselected(TabLayout.Tab tab) {}
+                });
+            } else {
+                Toast.makeText(this, "Erro: ID do dispositivo não encontrado", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        } else {
+            Toast.makeText(this, "Erro: Intent não encontrado", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+    }
 
+    private void saveDataToFirebase(String tipo, float valor) {
+        DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("devices/" + deviceId + "/" + tipo);
+        String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new java.util.Date());
+        String currentTime = timeFormat.format(new java.util.Date());
 
+        Map<String, Object> data = new HashMap<>();
+        data.put(currentTime, valor);
 
+        databaseRef.child(currentDate).updateChildren(data)
+                .addOnSuccessListener(aVoid -> Log.d("Firebase", "Data saved successfully"))
+                .addOnFailureListener(e -> Log.e("Firebase", "Error saving data", e));
+    }
 
+    private void carregarDadosFirebase(String tipo) {
+        entries.clear();
+        labels.clear();
 
-        // Adiciona um listener para as abas
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("devices/" + deviceId + "/" + tipo);
+        databaseRef.child("semana").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-
-
-
-                switch (tab.getPosition()) {
-                    case 0: // Semana
-                        entries.clear();
-                        labels.clear();
-                        //============Dias da Semana===========
-                        labels.add("Domingo");
-                        labels.add("Segunda-feira");
-                        labels.add("Terça-feira");
-                        labels.add("Quarta-feira");
-                        labels.add("Quinta-feira");
-                        labels.add("Sexta-feira");
-                        labels.add("Sábado");
-
-                        //============Dias da Semana===========
-                        entries.add(new Entry(0f, 100f));
-                        entries.add(new Entry(1f, 200f));
-                        entries.add(new Entry(2f, 30f));
-                        entries.add(new Entry(3f, 20f));
-                        entries.add(new Entry(4f, 500f));
-                        entries.add(new Entry(5f, 600f));
-                        entries.add(new Entry(6f, 200f));
-
-
-                        break;
-                    case 1: //
-                        entries.clear();
-                        labels.clear();
-
-                        labels.add("Janeiro");
-                        labels.add("Fevereiro");
-                        labels.add("Março");
-                        labels.add("Abril");
-                        labels.add("Maio");
-                        labels.add("Junho");
-                        labels.add("Julho");
-                        labels.add("Agosto");
-                        labels.add("Setembro");
-                        labels.add("Outubro");
-                        labels.add("Novembro");
-                        labels.add("Dezembro");
-                        //============meses===========
-
-                        entries.add(new Entry(0f, 10f));
-                        entries.add(new Entry(1f, 2000f));
-                        entries.add(new Entry(2f, 500f));
-                        entries.add(new Entry(3f, 3000f));
-                        entries.add(new Entry(4f, 40f));
-                        entries.add(new Entry(5f, 5000f));
-                        entries.add(new Entry(6f, 6000f));
-                        entries.add(new Entry(7f, 400f));
-                        entries.add(new Entry(8f, 8000f));
-                        entries.add(new Entry(9f, 900f));
-                        entries.add(new Entry(10f, 10f));
-                        entries.add(new Entry(11f, 11000f));
-
-
-
-                        break;
-                    case 2: // Ano
-                        entries.clear();
-                        labels.clear();
-                        labels.add("2023");
-                        labels.add("2024");
-                        labels.add("2025");
-                        labels.add("2026");
-                        labels.add("2027");
-
-                        entries.add(new Entry(0f, 1000f));
-                        entries.add(new Entry(1f, 2000f));
-                        entries.add(new Entry(2f, 3000f));
-                        entries.add(new Entry(3f, 4000f));
-                        entries.add(new Entry(4f, 5000f));
-
-
-                        break;
-
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                int index = 0;
+                for (DataSnapshot data : snapshot.getChildren()) {
+                    String dia = data.getKey();
+                    Float valor = data.getValue(Float.class);
+                    labels.add(dia);
+                    entries.add(new Entry(index++, valor != null ? valor : 0));
                 }
-                // Crie o formatter
-                IndexAxisValueFormatter formatter = new IndexAxisValueFormatter(labels);
-
-                // Configure o eixo X
-                XAxis xAxis = chart.getXAxis();
-                xAxis.setValueFormatter(formatter);
-                xAxis.setGranularity(1f); // Para garantir que todos os rótulos sejam exibidos
-                xAxis.setPosition(XAxis.XAxisPosition.BOTTOM); // Posiciona os rótulos abaixo do gráfico
                 configureGraphics();
-
             }
 
             @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-                // Não faça nada aqui
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-                // Não faça nada aqui
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("Firebase", "Error loading data", error.toException());
             }
         });
     }
 
-    public void configureGraphics() {
-
-
-        LineDataSet dataSet = new LineDataSet(entries, "valores");
-        dataSet.setColor(Color.BLUE); // Personalize a cor da linha
-        dataSet.setValueTextColor(Color.BLACK); // Cor dos valores
+    private void configureGraphics() {
+        LineDataSet dataSet = new LineDataSet(entries, "Valores");
+        dataSet.setColor(ColorTemplate.JOYFUL_COLORS[0]);
+        dataSet.setValueTextColor(ColorTemplate.COLORFUL_COLORS[1]);
+        dataSet.setValueTextSize(10f);
+        dataSet.setDrawFilled(true);
+        dataSet.setFillAlpha(100);
 
         LineData data = new LineData(dataSet);
         chart.setData(data);
 
-        // Configurar eixo X e Y
         XAxis xAxis = chart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(labels));
 
         YAxis leftAxis = chart.getAxisLeft();
         leftAxis.setDrawGridLines(false);
-
-        YAxis rightAxis = chart.getAxisRight();
-        rightAxis.setEnabled(false);  // Desabilita o eixo direito
+        chart.getAxisRight().setEnabled(false);
         chart.setTouchEnabled(true);
-        chart.setEnabled(true);
-//======================================Zoom in Graphic====================================
-        chart.setPinchZoom(true); // Habilita o zoom por gestos
-        chart.setScaleXEnabled(true); // Habilita o zoom no eixo X
-        chart.setScaleYEnabled(true); // Habilita o zoom no eixo Y
-        chart.setAutoScaleMinMaxEnabled(true);
-
-
-//======================================Zoom in Graphic====================================
-//======================================Color in Graphic====================================
-        int color = ColorTemplate.JOYFUL_COLORS[0];
-        dataSet.setColor(color);
-        dataSet.setValueTextColor(Color.BLUE);
-        dataSet.setValueTextSize(20f);
-        dataSet.setDrawFilled(true);
-        dataSet.setFillColor(Color.BLUE);
-        dataSet.setFillAlpha(100);
-//======================================Color in Graphic====================================
-        chart.invalidate(); // Atualiza o gráfico[
-
+        chart.setPinchZoom(true);
+        chart.setScaleEnabled(true);
+        chart.invalidate();
     }
 }
