@@ -57,6 +57,7 @@
             android:textStyle="italic"
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="213dp" />
+
     </com.google.android.material.textfield.TextInputLayout>
 
     <ImageView
@@ -76,16 +77,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginBottom="24dp"
+        android:backgroundTint="@color/azulescuro"
         android:text="Editar Perfil"
         android:textColor="@color/white"
-        android:layout_marginBottom="30dp"
-        android:backgroundTint="@color/azulescuro"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="134dp"
-        tools:layout_editor_absoluteY="610dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.167"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
 
     <ImageButton
         android:id="@+id/btn_back"
@@ -98,6 +98,20 @@
         tools:layout_editor_absoluteX="-14dp"
         tools:layout_editor_absoluteY="-13dp"
         />
+
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="40dp"
+        android:layout_marginBottom="24dp"
+        android:backgroundTint="@color/azulescuro"
+        android:text="Desconectar-se"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnEditProfile" />
 
     <!-- Ajusta a imagem para se ajustar ao botão -->
 

@@ -17,42 +17,20 @@
 
         <!-- Conteúdo principal da sua atividade -->
 
-        <FrameLayout
-            android:id="@+id/content_frame"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:background="@color/azulescuro"
+            android:fitsSystemWindows="true"
+            />
 
-            <Button
-                android:id="@+id/btnLogout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Desconectar-se"
-                android:textStyle="bold"
-                android:textColor="@color/white"
-                android:layout_gravity="center"
-                android:layout_marginLeft="100dp"
-                android:layout_marginTop="300dp"
-                android:backgroundTint="@color/azulescuro" />
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/nav_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:menu="@menu/drawer_menu" />
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/azulescuro"
-                android:fitsSystemWindows="true"
-                />
-
-            <com.google.android.material.navigation.NavigationView
-                android:id="@+id/nav_view"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="start"
-                android:layout_marginTop="24dp"
-                app:menu="@menu/drawer_menu"
-
-                />
-
-        </FrameLayout>
     </LinearLayout>
 
 </androidx.drawerlayout.widget.DrawerLayout>

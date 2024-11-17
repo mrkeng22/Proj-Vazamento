@@ -17,16 +17,23 @@ import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import java.lang.NumberFormatException
 
+//firestore database
+import com.google.firebase.firestore.FirebaseFirestore
+
 class MainActivity : AppCompatActivity() {
 
     private lateinit var emailInputLayout: TextInputLayout
     private lateinit var passwordInputLayout: TextInputLayout
     private lateinit var stayLoggedInCheckBox: CheckBox
     private lateinit var auth: FirebaseAuth
+    private lateinit var firestore: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        // Inicializa o Firestore
+        firestore = FirebaseFirestore.getInstance()
 
         auth = FirebaseAuth.getInstance()
 
@@ -126,3 +133,4 @@ class MainActivity : AppCompatActivity() {
         private const val TAG = "MainActivity"
     }
 }
+

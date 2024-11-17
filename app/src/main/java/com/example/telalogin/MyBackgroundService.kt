@@ -114,7 +114,7 @@ class MyBackgroundService : Service() {
                     }
 
                     pressureValue?.let {
-                        if (it >= 1) {
+                        if (it >= 0.75) {
                             Log.d("MyBackgroundService", "Dispositivo $nome - Novo valor de pressão: $it")
                             sendNotification("Pressão Alta", "Dispositivo $nome - Novo valor de pressão: $it")
                         }
