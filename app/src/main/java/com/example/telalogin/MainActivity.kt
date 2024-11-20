@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager.NameNotFoundException
 import android.graphics.Color
+import android.os.Build.VERSION_CODES.R
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -45,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         val txtEsqueciSenha: TextView = findViewById(R.id.textViewForgotPassword)
 
         // Verificar se o usuário está conectado e se escolheu ficar conectado
-        val sharedPreferences = getSharedPreferences("prefs", Context.MODE_PRIVATE)
+        val sharedPreferences = getSharedPreferences("prefs", MODE_PRIVATE)
         if (sharedPreferences.getBoolean("keepLoggedIn", false)) {
             irParaSegundaTela()
         }

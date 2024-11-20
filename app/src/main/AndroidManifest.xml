@@ -24,17 +24,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TelaLogin"
         tools:targetApi="31">
-        <activity
-            android:name=".activity_consumo"
-            android:exported="false"
-            android:label="@string/title_activity_consumo"
-            android:theme="@style/Theme.TelaLogin" />
-        <activity
-            android:name=".ui.theme.activity_consumo"
-            android:exported="false" />
-        <activity
-            android:name=".consumoTotalActivity"
-            android:exported="false" />
+
 
         <service
             android:name=".MyBackgroundService"
