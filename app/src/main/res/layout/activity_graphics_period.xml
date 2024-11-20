@@ -1,58 +1,63 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:ignore="ExtraText">
+    xmlns:tools="http://schemas.android.com/tools">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:ignore="ExtraText">
 
-    <ToggleButton
-        android:id="@+id/toggleButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textOff="Vazão"
-        android:textOn="Pressão"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="161dp"
-        tools:layout_editor_absoluteY="656dp" />
-
-    <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/chart2"
-        android:layout_width="410dp"
-        android:layout_height="609dp"
-        android:layout_marginBottom="88dp"
-        android:background="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="0dp" />
-
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabl"
-        android:layout_width="411dp"
-        android:layout_height="34dp"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp">
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/Semana"
+        <!-- ToggleButton para alternar entre Vazão e Pressão -->
+        <ToggleButton
+            android:id="@+id/toggleButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Semana" />
+            android:textOff="Vazão"
+            android:textOn="Pressão"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="MissingConstraints" />
 
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/Mes"
-            android:layout_width="wrap_content"
+        <!-- LineChart para gráficos -->
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/chart2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="88dp"
+            android:background="@color/white"
+            app:layout_constraintTop_toBottomOf="@id/toggleButton"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- TabLayout para seleções de tempo (Semana, Mês, Ano) -->
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabl"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Mês" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/Ano"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Ano" />
-    </com.google.android.material.tabs.TabLayout>
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/Semana"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Semana" />
 
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/Mes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mês" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/Ano"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ano" />
+        </com.google.android.material.tabs.TabLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

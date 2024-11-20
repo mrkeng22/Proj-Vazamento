@@ -40,12 +40,9 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    viewBinding {
-        enable = true
-    }
     buildFeatures {
         viewBinding = true
-        compose = true
+        dataBinding = true // Habilite o Data Binding aqui
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
@@ -98,3 +95,4 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 }
+
