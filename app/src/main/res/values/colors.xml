@@ -9,6 +9,7 @@
     <color name="azulescuro">#5F6FFF </color>
     <color name="bordaLogin">#1F1FFF</color>
     <color name = "cinza_escuro">#A9A9A9</color>
+    <color name="azul_logo">#0e51ab</color>
 
 
 </resources>
